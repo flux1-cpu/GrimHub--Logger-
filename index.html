@@ -115,7 +115,6 @@
             margin-bottom: 1rem;
         }
         
-        /* Select All / Deselect All buttons */
         .select-buttons {
             display: flex;
             gap: 0.8rem;
@@ -150,9 +149,9 @@
 
         .brainrot-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
             gap: 0.7rem;
-            max-height: 320px;
+            max-height: 420px;
             overflow-y: auto;
             background: #0a0e1c;
             border-radius: 20px;
@@ -163,12 +162,12 @@
             align-items: center;
             gap: 0.5rem;
             background: #0C1023;
-            padding: 8px 12px;
-            border-radius: 40px;
+            padding: 6px 10px;
+            border-radius: 12px;
             border: 1px solid #1E2846;
             cursor: pointer;
             transition: all 0.1s;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
         .brainrot-item.selected {
             background: #2a1e55;
@@ -176,14 +175,24 @@
             box-shadow: 0 0 6px rgba(139,0,255,0.4);
         }
         .brainrot-item input {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             margin: 0;
             accent-color: #8B00FF;
+        }
+        .brainrot-item img {
+            width: 36px;
+            height: 36px;
+            object-fit: cover;
+            border-radius: 8px;
+            background: #1a1f3a;
         }
         .brainrot-item span {
             flex: 1;
             user-select: none;
+            font-size: 0.7rem;
+            line-height: 1.2;
+            word-break: break-word;
         }
 
         .toggle-group {
@@ -292,7 +301,8 @@
         @media (max-width: 780px) {
             body { padding: 1rem; }
             .grid { grid-template-columns: 1fr; }
-            .brainrot-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+            .brainrot-grid { grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); }
+            .brainrot-item img { width: 28px; height: 28px; }
         }
     </style>
 </head>
@@ -341,7 +351,6 @@
             <div class="search-box">
                 <input type="text" id="brainrotSearch" placeholder="Search brainrot... 🔍" style="background:#0C1023;">
             </div>
-            <!-- SELECT ALL / DESELECT ALL BUTTONS -->
             <div class="select-buttons">
                 <button class="small-btn select-all" id="selectAllBtn">✅ Select All</button>
                 <button class="small-btn deselect-all" id="deselectAllBtn">❌ Deselect All</button>
@@ -369,6 +378,70 @@
         "Strawberry Elephant", "Meowl", "Skibidi Toilet", "Headless Horseman", "Dragon Cannelloni", "Hydra Dragon Cannelloni", "Dragon Gingerini", "Griffin", "Cerberus", "Celestial Pegasus", "Love Love Bear", "La Supreme Combinasion", "Popcuru and Fizzuru", "Rosey and Teddy", "Capitano Moby", "Cooki and Milki", "Burguro And Fryuro", "Ketupat Bros", "Reinito Sleighito", "Fortunu and Cashuru", "Los Amigos", "La Secret Combinasion", "Los Sekolahs", "Signore Carapace", "La Casa Boo", "Fragrama and Chocrama", "La Food Combinasion", "Elefanto Frigo", "Spooky and Pumpky", "Ginger Gerat", "La Ginger Sekolah", "Sammyni Fattini", "Los Spaghettis", "Festive 67", "Ventoliero Pavonero", "Cloverat Clapat", "Spaghetti Tualetti", "Antonio", "Rosetti Tualetti", "Nacho Spyder", "Garama and Madundung", "Fishino Clownino", "Gold Gold Gold", "Jolly Jolly Sahur", "Lavadorito Spinito", "Ketchuru and Musturu", "Swaggy Bros", "La Romantic Grande", "Orcaledon", "Tictac Sahur", "La Taco Combinasion", "Ketupat Kepat", "Dug dug dug", "Tang Tang Keletang", "Lovin Rose", "Los Tacoritas", "Eviledon", "Los Primos", "W or L", "Esok Sekolah", "La Jolly Grande", "Los Cupids", "Los Puggies", "Tralaledon", "Gobblino Uniciclino", "Tuff Toucan", "Mieteteira Bicicleteira", "Chillin Chili", "Money Money Reindeer", "La Spooky Grande", "Bacuru and Egguru", "Los Bros", "La Extinct Grande", "Los Candies", "Los 67", "Celularcini Viciosini", "Los Mobilis", "Money Money Puggy", "Cigno Fulgoro", "Los Spooky Combinasionas", "Los Hotspotsitos", "Los Jolly Combinasionas", "Snailo Clovero", "Los Planitos", "Chicleteira Cupideira", "DJ Panda", "Las Sis", "Spinny Hammy", "Tacorita Bicicleta", "Los Sweethearts", "Nuclearo Dinossauro", "Chicleteira Noelteira", "Los Combinasionas", "Chimnino", "Noo my Gold", "Swag Soda", "Noo my Heart", "Tacorillo Crocodillo", "Mariachi Corazoni", "La Grande Combinasion", "Los 25", "Los Burritos", "67", "Donkeyturbo Express", "Los Chicleteiras", "Guest 666", "Los Mi Gatitos", "Rang Ring Bus", "Granny", "Noo my Present", "Serafinna Medusella", "Los Nooo My Hotspotsitos", "Arcadopus", "Noo my Candy", "Los Quesadillas", "Chicleteirina Bicicleteirina", "Chill Puppy", "Burrito Bandito", "Luck Luck Luck Sahur", "Chicleteira Bicicleteira", "Brunito Marsito", "Quesadillo Vampiro", "Eid Eid Eid Sahur", "Cupid Hotspot", "Mi Gatito", "Ho Ho Ho Sahur", "Cupid Cupid Sahur", "Pot Pumpkin", "Naughty Naughty", "Bunito Bunito Spinito", "Quesadilla Crocodila", "Horegini Boom", "Santa Hotspot", "Pot Hotspot", "25", "Pirulitoita Bicicleteira", "To to to Sahur", "Telemorte", "La Sahur Combinasion", "List List List Sahur", "Noo my examine", "Los Jobcitos", "Nooo My Hotspot", "Bunnyman", "Tung Tung Tung Sahur", "Cuadramat and Pakrahmatmamat", "Please my Present", "Los Cucarachas", "1x1x1x1", "La Vacca Lepre Lepreino", "Love Love Love Sahur", "Perrito Burrito", "Graipuss Medussi", "Giftini Spyderini", "GOAT", "Trickolino", "Paradiso Axolottino", "Triplito Tralaleritos", "La Vacca Jacko Linterino", "Fishboard", "Santteo", "Las Vaquitas Saturnitas", "Los Karkeritos", "Karker Sahur", "Los Trios", "Job Job Job Sahur", "Frankentteo", "Pumpkini Spyderini", "Las Tralaleritas", "Rocco Disco", "Extinct Matteo", "La Karkerkar Kombinasin", "La Vacca Prese Presente", "Reindeer Tralala", "Yess my examine", "Guerriro Digitale", "Boatito Auratito", "Vulturino Skeletono", "Los Tralaleritos", "Zombie Tralala", "Los Tortus", "La Cucaracha", "Fragola La La La", "Extinct Tralalero", "Agarrini la Palini", "Los Spyderinis", "Chachechi", "Blackhole Goat", "Dul Dul Dul", "Torrtuginni Dragonfrutini", "Trenostruzzo Turbo 4000", "Karkerkar Kurkur", "Los Matteos", "Bisonte Giuppitere", "Sammyni Spyderini", "La Vacca Saturno Saturnita", "Jackorilla"
     ];
 
+    // Function to get image URL from brainrot name using Fandom wiki
+    async function fetchBrainrotImageUrl(name) {
+        // CORS proxy to bypass browser restrictions
+        const proxyUrl = 'https://api.allorigins.win/raw?url=';
+        
+        // Convert name to wiki format (spaces to underscores)
+        const wikiName = encodeURIComponent(name.replace(/ /g, '_'));
+        const wikiUrl = `https://stealabrainrot.fandom.com/wiki/${wikiName}`;
+        
+        try {
+            const response = await fetch(proxyUrl + encodeURIComponent(wikiUrl));
+            const html = await response.text();
+            
+            // Try to find og:image meta tag
+            const ogMatch = html.match(/property="og:image"\s+content="([^"]+)"/);
+            if (ogMatch && ogMatch[1]) {
+                return ogMatch[1];
+            }
+            
+            // Try to find infobox image
+            const imgMatch = html.match(/data-src="(https:\/\/static\.wikia\.nocookie\.net\/[^"]+\.(?:png|jpg|jpeg|webp|gif))/i);
+            if (imgMatch && imgMatch[1]) {
+                return imgMatch[1];
+            }
+            
+            return null;
+        } catch (e) {
+            console.log(`Failed to fetch image for ${name}:`, e);
+            return null;
+        }
+    }
+
+    // Cache for images
+    const imageCache = new Map();
+
+    async function loadImageForBrainrot(name, imgElement) {
+        if (imageCache.has(name)) {
+            const imgUrl = imageCache.get(name);
+            if (imgUrl) {
+                imgElement.src = imgUrl;
+                imgElement.onerror = () => {
+                    imgElement.src = `https://ui-avatars.com/api/?background=8B00FF&color=fff&rounded=true&size=36&name=${encodeURIComponent(name.charAt(0))}`;
+                };
+            } else {
+                imgElement.src = `https://ui-avatars.com/api/?background=8B00FF&color=fff&rounded=true&size=36&name=${encodeURIComponent(name.charAt(0))}`;
+            }
+            return;
+        }
+        
+        // Set initial placeholder
+        imgElement.src = `https://ui-avatars.com/api/?background=423189&color=fff&rounded=true&size=36&name=${encodeURIComponent(name.charAt(0))}`;
+        
+        // Fetch actual image
+        const imgUrl = await fetchBrainrotImageUrl(name);
+        imageCache.set(name, imgUrl);
+        
+        if (imgUrl) {
+            imgElement.src = imgUrl;
+            imgElement.onerror = () => {
+                imgElement.src = `https://ui-avatars.com/api/?background=8B00FF&color=fff&rounded=true&size=36&name=${encodeURIComponent(name.charAt(0))}`;
+            };
+        }
+    }
+
     let selectedBrainrots = new Set();
 
     const brainrotGrid = document.getElementById('brainrotGrid');
@@ -388,12 +461,13 @@
     const selectAllBtn = document.getElementById('selectAllBtn');
     const deselectAllBtn = document.getElementById('deselectAllBtn');
 
-    function renderBrainrots() {
+    async function renderBrainrots() {
         const searchTerm = searchInput.value.toLowerCase();
         const filtered = brainrotsList.filter(br => br.toLowerCase().includes(searchTerm));
         
         brainrotGrid.innerHTML = '';
-        filtered.forEach(brainrot => {
+        
+        for (const brainrot of filtered) {
             const isChecked = selectedBrainrots.has(brainrot);
             const div = document.createElement('div');
             div.className = `brainrot-item ${isChecked ? 'selected' : ''}`;
@@ -412,13 +486,19 @@
                 renderBrainrots();
             });
             
+            const img = document.createElement('img');
+            img.alt = brainrot;
+            img.style.backgroundColor = '#1a1f3a';
+            
             const span = document.createElement('span');
             span.innerText = brainrot;
             
             div.appendChild(cb);
+            div.appendChild(img);
             div.appendChild(span);
+            
             div.addEventListener('click', (e) => {
-                if (e.target !== cb) {
+                if (e.target !== cb && e.target !== img) {
                     cb.checked = !cb.checked;
                     if (cb.checked) selectedBrainrots.add(brainrot);
                     else selectedBrainrots.delete(brainrot);
@@ -426,8 +506,12 @@
                     renderBrainrots();
                 }
             });
+            
             brainrotGrid.appendChild(div);
-        });
+            
+            // Load image asynchronously
+            loadImageForBrainrot(brainrot, img);
+        }
         updateSelectedCount();
     }
 
@@ -435,7 +519,6 @@
         selectedCountSpan.innerText = `Selected: ${selectedBrainrots.size} brainrot${selectedBrainrots.size !== 1 ? 's' : ''}`;
     }
 
-    // Select All function
     function selectAll() {
         brainrotsList.forEach(brainrot => {
             selectedBrainrots.add(brainrot);
@@ -445,7 +528,6 @@
         showToast('✅ Selected all ' + selectedBrainrots.size + ' brainrots!');
     }
 
-    // Deselect All function
     function deselectAll() {
         selectedBrainrots.clear();
         updateSelectedCount();
