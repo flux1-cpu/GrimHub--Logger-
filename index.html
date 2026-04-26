@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>GrimHub Logger Generator</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
     <style>
         * {
             margin: 0;
@@ -276,7 +277,7 @@
 <body>
 <div class="container">
     <div class="header">
-        <h1>🎃 GrimHub Logger Generator</h1>
+        <h1>💀 GrimHub Logger Generator</h1>
         <p>craft your brainrot script • loadstring ready</p>
     </div>
 
@@ -346,7 +347,7 @@
         "Strawberry Elephant", "Meowl", "Skibidi Toilet", "Headless Horseman", "Dragon Cannelloni", "Hydra Dragon Cannelloni", "Dragon Gingerini", "Griffin", "Cerberus", "Celestial Pegasus", "Love Love Bear", "La Supreme Combinasion", "Popcuru and Fizzuru", "Rosey and Teddy", "Capitano Moby", "Cooki and Milki", "Burguro And Fryuro", "Ketupat Bros", "Reinito Sleighito", "Fortunu and Cashuru", "Los Amigos", "La Secret Combinasion", "Los Sekolahs", "Signore Carapace", "La Casa Boo", "Fragrama and Chocrama", "La Food Combinasion", "Elefanto Frigo", "Spooky and Pumpky", "Ginger Gerat", "La Ginger Sekolah", "Sammyni Fattini", "Los Spaghettis", "Festive 67", "Ventoliero Pavonero", "Cloverat Clapat", "Spaghetti Tualetti", "Antonio", "Rosetti Tualetti", "Nacho Spyder", "Garama and Madundung", "Fishino Clownino", "Gold Gold Gold", "Jolly Jolly Sahur", "Lavadorito Spinito", "Ketchuru and Musturu", "Swaggy Bros", "La Romantic Grande", "Orcaledon", "Tictac Sahur", "La Taco Combinasion", "Ketupat Kepat", "Dug dug dug", "Tang Tang Keletang", "Lovin Rose", "Los Tacoritas", "Eviledon", "Los Primos", "W or L", "Esok Sekolah", "La Jolly Grande", "Los Cupids", "Los Puggies", "Tralaledon", "Gobblino Uniciclino", "Tuff Toucan", "Mieteteira Bicicleteira", "Chillin Chili", "Money Money Reindeer", "La Spooky Grande", "Bacuru and Egguru", "Los Bros", "La Extinct Grande", "Los Candies", "Los 67", "Celularcini Viciosini", "Los Mobilis", "Money Money Puggy", "Cigno Fulgoro", "Los Spooky Combinasionas", "Los Hotspotsitos", "Los Jolly Combinasionas", "Snailo Clovero", "Los Planitos", "Chicleteira Cupideira", "DJ Panda", "Las Sis", "Spinny Hammy", "Tacorita Bicicleta", "Los Sweethearts", "Nuclearo Dinossauro", "Chicleteira Noelteira", "Los Combinasionas", "Chimnino", "Noo my Gold", "Swag Soda", "Noo my Heart", "Tacorillo Crocodillo", "Mariachi Corazoni", "La Grande Combinasion", "Los 25", "Los Burritos", "67", "Donkeyturbo Express", "Los Chicleteiras", "Guest 666", "Los Mi Gatitos", "Rang Ring Bus", "Granny", "Noo my Present", "Serafinna Medusella", "Los Nooo My Hotspotsitos", "Arcadopus", "Noo my Candy", "Los Quesadillas", "Chicleteirina Bicicleteirina", "Chill Puppy", "Burrito Bandito", "Luck Luck Luck Sahur", "Chicleteira Bicicleteira", "Brunito Marsito", "Quesadillo Vampiro", "Eid Eid Eid Sahur", "Cupid Hotspot", "Mi Gatito", "Ho Ho Ho Sahur", "Cupid Cupid Sahur", "Pot Pumpkin", "Naughty Naughty", "Bunito Bunito Spinito", "Quesadilla Crocodila", "Horegini Boom", "Santa Hotspot", "Pot Hotspot", "25", "Pirulitoita Bicicleteira", "To to to Sahur", "Telemorte", "La Sahur Combinasion", "List List List Sahur", "Noo my examine", "Los Jobcitos", "Nooo My Hotspot", "Bunnyman", "Tung Tung Tung Sahur", "Cuadramat and Pakrahmatmamat", "Please my Present", "Los Cucarachas", "1x1x1x1", "La Vacca Lepre Lepreino", "Love Love Love Sahur", "Perrito Burrito", "Graipuss Medussi", "Giftini Spyderini", "GOAT", "Trickolino", "Paradiso Axolottino", "Triplito Tralaleritos", "La Vacca Jacko Linterino", "Fishboard", "Santteo", "Las Vaquitas Saturnitas", "Los Karkeritos", "Karker Sahur", "Los Trios", "Job Job Job Sahur", "Frankentteo", "Pumpkini Spyderini", "Las Tralaleritas", "Rocco Disco", "Extinct Matteo", "La Karkerkar Kombinasin", "La Vacca Prese Presente", "Reindeer Tralala", "Yess my examine", "Guerriro Digitale", "Boatito Auratito", "Vulturino Skeletono", "Los Tralaleritos", "Zombie Tralala", "Los Tortus", "La Cucaracha", "Fragola La La La", "Extinct Tralalero", "Agarrini la Palini", "Los Spyderinis", "Chachechi", "Blackhole Goat", "Dul Dul Dul", "Torrtuginni Dragonfrutini", "Trenostruzzo Turbo 4000", "Karkerkar Kurkur", "Los Matteos", "Bisonte Giuppitere", "Sammyni Spyderini", "La Vacca Saturno Saturnita", "Jackorilla"
     ];
 
-    let selectedBrainrots = new Set(); // store lowercase or original? We'll store original string case
+    let selectedBrainrots = new Set();
 
     // DOM elements
     const brainrotGrid = document.getElementById('brainrotGrid');
@@ -386,7 +387,7 @@
                     selectedBrainrots.delete(brainrot);
                 }
                 updateSelectedCount();
-                renderBrainrots();  // re-render to show selection border
+                renderBrainrots();
             });
             
             const span = document.createElement('span');
@@ -435,7 +436,6 @@
         const wsFake = fakeWebSocket.checked;
         const freezeSec = parseInt(freezeSlider.value, 10);
         
-        // Build brainrots table: lua table format
         const brainrotsArray = Array.from(selectedBrainrots);
         let brainrotsLua = '{';
         brainrotsArray.forEach((br, idx) => {
@@ -444,7 +444,6 @@
         });
         brainrotsLua += '}';
         
-        // Final script (exactly as required)
         const script = `-- GrimHub Logger - Generated
 script_key = "trial"
 
@@ -461,11 +460,6 @@ getgenv().Distraction = {
 loadstring(game:HttpGet("https://api.getpolsec.com/scripts/hosted/e5d6f5931adf4184336d3d2463fedaccd56ede1246ebba931f664c1058acd094.lua"))()`;
         
         return script;
-    }
-    
-    function updateOutput() {
-        const script = generateScript();
-        if (script) outputCode.innerText = script;
     }
     
     generateBtn.addEventListener('click', () => {
@@ -522,8 +516,6 @@ loadstring(game:HttpGet("https://api.getpolsec.com/scripts/hosted/e5d6f5931adf41
     updateSelectedCount();
     freezeValueDisplay.innerText = freezeSlider.value + 's';
     
-    // optional: example default selection? Not needed but user can pick.
-    // live filter
     searchInput.addEventListener('input', () => renderBrainrots());
 </script>
 </body>
