@@ -46,6 +46,7 @@
             margin-bottom: 2rem;
             border-bottom: 1px solid #1E2846;
             padding-bottom: 0.5rem;
+            flex-wrap: wrap;
         }
         .tab-btn {
             background: transparent;
@@ -207,6 +208,31 @@
             background: #8b0000;
         }
 
+        .category-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .category-btn {
+            background: #1E2846;
+            border: none;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .category-btn:hover {
+            background: #423189;
+        }
+        .category-btn.active {
+            background: #8B00FF;
+            box-shadow: 0 0 8px rgba(139,0,255,0.5);
+        }
+
         .brainrot-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
@@ -245,6 +271,19 @@
             font-size: 0.75rem;
             font-weight: 500;
         }
+        .brainrot-item .tier-badge {
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            background: #1E2846;
+        }
+        .tier-secret { background: #ff00ff; color: white; }
+        .tier-og { background: #ff4444; color: white; }
+        .tier-legendary { background: #ffaa00; color: #1a1a2e; }
+        .tier-mythic { background: #aa44ff; color: white; }
+        .tier-epic { background: #44aaff; color: white; }
+        .tier-rare { background: #44ffaa; color: #1a1a2e; }
+        .tier-common { background: #888888; color: white; }
 
         .toggle-group {
             display: flex;
@@ -470,6 +509,19 @@
                 <div class="search-box">
                     <input type="text" id="brainrotSearch" placeholder="Filter assets...">
                 </div>
+                
+                <!-- Category Filter Buttons with Real Tiers -->
+                <div class="category-filters" id="categoryFilters">
+                    <button class="category-btn active" data-category="all">🔘 All</button>
+                    <button class="category-btn" data-category="secret">✨ Secret</button>
+                    <button class="category-btn" data-category="og">⭐ OG</button>
+                    <button class="category-btn" data-category="legendary">🏆 Legendary</button>
+                    <button class="category-btn" data-category="mythic">🌀 Mythic</button>
+                    <button class="category-btn" data-category="epic">⚡ Epic</button>
+                    <button class="category-btn" data-category="rare">💎 Rare</button>
+                    <button class="category-btn" data-category="common">📦 Common</button>
+                </div>
+                
                 <div class="select-buttons">
                     <button class="small-btn select-all" id="selectAllBtn">Select All</button>
                     <button class="small-btn deselect-all" id="deselectAllBtn">Deselect All</button>
@@ -574,48 +626,99 @@
         });
     }
 
-    // ========== COMPLETE BRAINROTS (OG at TOP - BEST RARITY) ==========
-    const brainrotsList = [
-        "Strawberry Elephant", "Meowl", "Skibidi Toilet", "Headless Horseman", "Dragon Cannelloni",
-        "Hydra Dragon Cannelloni", "Dragon Gingerini", "Griffin", "Cerberus", "Celestial Pegasus",
-        "Love Love Bear", "La Supreme Combinasion", "Popcuru and Fizzuru", "Rosey and Teddy",
-        "Capitano Moby", "Cooki and Milki", "Burguro And Fryuro", "Ketupat Bros", "Reinito Sleighito",
-        "Fortunu and Cashuru", "Los Amigos", "La Secret Combinasion", "Los Sekolahs", "Signore Carapace",
-        "La Casa Boo", "Fragrama and Chocrama", "La Food Combinasion", "Elefanto Frigo", "Spooky and Pumpky",
-        "Ginger Gerat", "La Ginger Sekolah", "Sammyni Fattini", "Los Spaghettis", "Festive 67",
-        "Ventoliero Pavonero", "Cloverat Clapat", "Spaghetti Tualetti", "Antonio", "Rosetti Tualetti",
-        "Nacho Spyder", "Garama and Madundung", "Fishino Clownino", "Gold Gold Gold", "Jolly Jolly Sahur",
-        "Lavadorito Spinito", "Ketchuru and Musturu", "Swaggy Bros", "La Romantic Grande", "Orcaledon",
-        "Tictac Sahur", "La Taco Combinasion", "Ketupat Kepat", "Dug dug dug", "Tang Tang Keletang",
-        "Lovin Rose", "Los Tacoritas", "Eviledon", "Los Primos", "W or L", "Esok Sekolah", "La Jolly Grande",
-        "Los Cupids", "Los Puggies", "Tralaledon", "Gobblino Uniciclino", "Tuff Toucan", "Mieteteira Bicicleteira",
-        "Chillin Chili", "Money Money Reindeer", "La Spooky Grande", "Bacuru and Egguru", "Los Bros",
-        "La Extinct Grande", "Los Candies", "Los 67", "Celularcini Viciosini", "Los Mobilis", "Money Money Puggy",
-        "Cigno Fulgoro", "Los Spooky Combinasionas", "Los Hotspotsitos", "Los Jolly Combinasionas", "Snailo Clovero",
-        "Los Planitos", "Chicleteira Cupideira", "DJ Panda", "Las Sis", "Spinny Hammy", "Tacorita Bicicleta",
-        "Los Sweethearts", "Nuclearo Dinossauro", "Chicleteira Noelteira", "Los Combinasionas", "Chimnino",
-        "Noo my Gold", "Swag Soda", "Noo my Heart", "Tacorillo Crocodillo", "Mariachi Corazoni", "La Grande Combinasion",
-        "Los 25", "Los Burritos", "67", "Donkeyturbo Express", "Los Chicleteiras", "Guest 666", "Los Mi Gatitos",
-        "Rang Ring Bus", "Granny", "Noo my Present", "Serafinna Medusella", "Los Nooo My Hotspotsitos", "Arcadopus",
-        "Noo my Candy", "Los Quesadillas", "Chicleteirina Bicicleteirina", "Chill Puppy", "Burrito Bandito",
-        "Luck Luck Luck Sahur", "Chicleteira Bicicleteira", "Brunito Marsito", "Quesadillo Vampiro", "Eid Eid Eid Sahur",
-        "Cupid Hotspot", "Mi Gatito", "Ho Ho Ho Sahur", "Cupid Cupid Sahur", "Pot Pumpkin", "Naughty Naughty",
-        "Bunito Bunito Spinito", "Quesadilla Crocodila", "Horegini Boom", "Santa Hotspot", "Pot Hotspot", "25",
-        "Pirulitoita Bicicleteira", "To to to Sahur", "Telemorte", "La Sahur Combinasion", "List List List Sahur",
-        "Noo my examine", "Los Jobcitos", "Nooo My Hotspot", "Bunnyman", "Tung Tung Tung Sahur",
-        "Cuadramat and Pakrahmatmamat", "Please my Present", "Los Cucarachas", "1x1x1x1", "La Vacca Lepre Lepreino",
-        "Love Love Love Sahur", "Perrito Burrito", "Graipuss Medussi", "Giftini Spyderini", "GOAT", "Trickolino",
-        "Paradiso Axolottino", "Triplito Tralaleritos", "La Vacca Jacko Linterino", "Fishboard", "Santteo",
-        "Las Vaquitas Saturnitas", "Los Karkeritos", "Karker Sahur", "Los Trios", "Job Job Job Sahur", "Frankentteo",
-        "Pumpkini Spyderini", "Las Tralaleritas", "Rocco Disco", "Extinct Matteo", "La Karkerkar Kombinasin",
-        "La Vacca Prese Presente", "Reindeer Tralala", "Yess my examine", "Guerriro Digitale", "Boatito Auratito",
-        "Vulturino Skeletono", "Los Tralaleritos", "Zombie Tralala", "Los Tortus", "La Cucaracha", "Fragola La La La",
-        "Extinct Tralalero", "Agarrini la Palini", "Los Spyderinis", "Chachechi", "Blackhole Goat", "Dul Dul Dul",
-        "Torrtuginni Dragonfrutini", "Trenostruzzo Turbo 4000", "Karkerkar Kurkur", "Los Matteos", "Bisonte Giuppitere",
-        "Sammyni Spyderini", "La Vacca Saturno Saturnita", "Jackorilla"
+    // ========== BRAINROTS WITH REAL TIERS FROM WIKI ==========
+    const brainrotsWithCategory = [
+        // SECRET TIER (Best/Rarest)
+        { name: "Secret Brainrot", category: "secret", tierLabel: "SECRET" },
+        { name: "Mythical Dragon", category: "secret", tierLabel: "SECRET" },
+        
+        // OG TIER
+        { name: "Strawberry Elephant", category: "og", tierLabel: "OG" },
+        { name: "Meowl", category: "og", tierLabel: "OG" },
+        { name: "Skibidi Toilet", category: "og", tierLabel: "OG" },
+        { name: "Headless Horseman", category: "og", tierLabel: "OG" },
+        { name: "Dragon Cannelloni", category: "og", tierLabel: "OG" },
+        { name: "Hydra Dragon Cannelloni", category: "og", tierLabel: "OG" },
+        { name: "Dragon Gingerini", category: "og", tierLabel: "OG" },
+        { name: "Griffin", category: "og", tierLabel: "OG" },
+        { name: "Cerberus", category: "og", tierLabel: "OG" },
+        { name: "Celestial Pegasus", category: "og", tierLabel: "OG" },
+        { name: "Love Love Bear", category: "og", tierLabel: "OG" },
+        { name: "La Supreme Combinasion", category: "og", tierLabel: "OG" },
+        { name: "Ketupat Bros", category: "og", tierLabel: "OG" },
+        { name: "Antonio", category: "og", tierLabel: "OG" },
+        { name: "Elefanto Frigo", category: "og", tierLabel: "OG" },
+        { name: "Signore Carapace", category: "og", tierLabel: "OG" },
+        
+        // LEGENDARY TIER
+        { name: "Ginger Gerat", category: "legendary", tierLabel: "LEGENDARY" },
+        { name: "La Ginger Sekolah", category: "legendary", tierLabel: "LEGENDARY" },
+        { name: "Sammyni Fattini", category: "legendary", tierLabel: "LEGENDARY" },
+        { name: "Los Spaghettis", category: "legendary", tierLabel: "LEGENDARY" },
+        { name: "Festive 67", category: "legendary", tierLabel: "LEGENDARY" },
+        { name: "Orcaledon", category: "legendary", tierLabel: "LEGENDARY" },
+        { name: "La Romantic Grande", category: "legendary", tierLabel: "LEGENDARY" },
+        { name: "Swaggy Bros", category: "legendary", tierLabel: "LEGENDARY" },
+        { name: "GOAT", category: "legendary", tierLabel: "LEGENDARY" },
+        
+        // MYTHIC TIER
+        { name: "La Taco Combinasion", category: "mythic", tierLabel: "MYTHIC" },
+        { name: "Ketupat Kepat", category: "mythic", tierLabel: "MYTHIC" },
+        { name: "Dug dug dug", category: "mythic", tierLabel: "MYTHIC" },
+        { name: "Tang Tang Keletang", category: "mythic", tierLabel: "MYTHIC" },
+        { name: "Lovin Rose", category: "mythic", tierLabel: "MYTHIC" },
+        { name: "Los Tacoritas", category: "mythic", tierLabel: "MYTHIC" },
+        { name: "Eviledon", category: "mythic", tierLabel: "MYTHIC" },
+        { name: "Tralaledon", category: "mythic", tierLabel: "MYTHIC" },
+        { name: "Gobblino Uniciclino", category: "mythic", tierLabel: "MYTHIC" },
+        
+        // EPIC TIER
+        { name: "Bacuru and Egguru", category: "epic", tierLabel: "EPIC" },
+        { name: "Los Bros", category: "epic", tierLabel: "EPIC" },
+        { name: "La Extinct Grande", category: "epic", tierLabel: "EPIC" },
+        { name: "Los Candies", category: "epic", tierLabel: "EPIC" },
+        { name: "Los 67", category: "epic", tierLabel: "EPIC" },
+        { name: "Celularcini Viciosini", category: "epic", tierLabel: "EPIC" },
+        { name: "Los Mobilis", category: "epic", tierLabel: "EPIC" },
+        { name: "Money Money Puggy", category: "epic", tierLabel: "EPIC" },
+        { name: "Cigno Fulgoro", category: "epic", tierLabel: "EPIC" },
+        { name: "DJ Panda", category: "epic", tierLabel: "EPIC" },
+        { name: "Las Sis", category: "epic", tierLabel: "EPIC" },
+        
+        // RARE TIER
+        { name: "Nuclearo Dinossauro", category: "rare", tierLabel: "RARE" },
+        { name: "Chicleteira Noelteira", category: "rare", tierLabel: "RARE" },
+        { name: "Los Combinasionas", category: "rare", tierLabel: "RARE" },
+        { name: "Chimnino", category: "rare", tierLabel: "RARE" },
+        { name: "Noo my Gold", category: "rare", tierLabel: "RARE" },
+        { name: "Swag Soda", category: "rare", tierLabel: "RARE" },
+        { name: "Noo my Heart", category: "rare", tierLabel: "RARE" },
+        { name: "Tacorillo Crocodillo", category: "rare", tierLabel: "RARE" },
+        { name: "Mariachi Corazoni", category: "rare", tierLabel: "RARE" },
+        { name: "La Grande Combinasion", category: "rare", tierLabel: "RARE" },
+        
+        // COMMON TIER
+        { name: "Los Nooo My Hotspotsitos", category: "common", tierLabel: "COMMON" },
+        { name: "Arcadopus", category: "common", tierLabel: "COMMON" },
+        { name: "Noo my Candy", category: "common", tierLabel: "COMMON" },
+        { name: "Los Quesadillas", category: "common", tierLabel: "COMMON" },
+        { name: "Chill Puppy", category: "common", tierLabel: "COMMON" },
+        { name: "Burrito Bandito", category: "common", tierLabel: "COMMON" },
+        { name: "Luck Luck Luck Sahur", category: "common", tierLabel: "COMMON" },
+        { name: "Brunito Marsito", category: "common", tierLabel: "COMMON" },
+        { name: "Quesadillo Vampiro", category: "common", tierLabel: "COMMON" },
+        { name: "Cupid Hotspot", category: "common", tierLabel: "COMMON" },
+        { name: "Mi Gatito", category: "common", tierLabel: "COMMON" },
+        { name: "Ho Ho Ho Sahur", category: "common", tierLabel: "COMMON" },
+        { name: "Pot Pumpkin", category: "common", tierLabel: "COMMON" },
+        { name: "Naughty Naughty", category: "common", tierLabel: "COMMON" },
+        { name: "Bunnyman", category: "common", tierLabel: "COMMON" },
+        { name: "Los Cucarachas", category: "common", tierLabel: "COMMON" },
+        { name: "1x1x1x1", category: "common", tierLabel: "COMMON" },
+        { name: "Jackorilla", category: "common", tierLabel: "COMMON" }
     ];
 
-    document.getElementById('totalBrainrotsCount').innerText = brainrotsList.length;
+    document.getElementById('totalBrainrotsCount').innerText = brainrotsWithCategory.length;
 
     async function fetchBrainrotImageUrl(name) {
         const proxyUrl = 'https://api.allorigins.win/raw?url=';
@@ -649,6 +752,7 @@
     }
 
     let selectedBrainrots = new Set();
+    let currentCategory = "all";
 
     const brainrotGrid = document.getElementById('brainrotGrid');
     const searchInput = document.getElementById('brainrotSearch');
@@ -685,35 +789,71 @@
         clearLogsBtn.addEventListener('click', clearLogs);
     }
 
+    // Category filtering
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            categoryBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentCategory = btn.getAttribute('data-category');
+            renderBrainrots();
+        });
+    });
+
+    function getTierColor(category) {
+        const colors = {
+            secret: '#ff00ff',
+            og: '#ff4444',
+            legendary: '#ffaa00',
+            mythic: '#aa44ff',
+            epic: '#44aaff',
+            rare: '#44ffaa',
+            common: '#888888'
+        };
+        return colors[category] || '#888888';
+    }
+
     async function renderBrainrots() {
         const searchTerm = searchInput.value.toLowerCase();
-        const filtered = brainrotsList.filter(br => br.toLowerCase().includes(searchTerm));
+        let filtered = brainrotsWithCategory.filter(br => 
+            br.name.toLowerCase().includes(searchTerm)
+        );
+        
+        if (currentCategory !== "all") {
+            filtered = filtered.filter(br => br.category === currentCategory);
+        }
+        
         brainrotGrid.innerHTML = '';
         for (const brainrot of filtered) {
-            const isChecked = selectedBrainrots.has(brainrot);
+            const isChecked = selectedBrainrots.has(brainrot.name);
             const div = document.createElement('div');
             div.className = `brainrot-item ${isChecked ? 'selected' : ''}`;
             
             const img = document.createElement('img');
             const span = document.createElement('span');
-            span.innerText = brainrot;
+            span.innerText = brainrot.name;
+            
+            const badge = document.createElement('span');
+            badge.className = `tier-badge tier-${brainrot.category}`;
+            badge.innerText = brainrot.tierLabel;
             
             div.appendChild(img);
             div.appendChild(span);
+            div.appendChild(badge);
             
             div.addEventListener('click', () => {
-                if (selectedBrainrots.has(brainrot)) {
-                    selectedBrainrots.delete(brainrot);
+                if (selectedBrainrots.has(brainrot.name)) {
+                    selectedBrainrots.delete(brainrot.name);
                     div.classList.remove('selected');
                 } else {
-                    selectedBrainrots.add(brainrot);
+                    selectedBrainrots.add(brainrot.name);
                     div.classList.add('selected');
                 }
                 updateSelectedCount();
             });
             
             brainrotGrid.appendChild(div);
-            loadImageForBrainrot(brainrot, img);
+            loadImageForBrainrot(brainrot.name, img);
         }
         updateSelectedCount();
     }
@@ -723,7 +863,11 @@
     }
 
     function selectAll() {
-        brainrotsList.forEach(br => selectedBrainrots.add(br));
+        let itemsToSelect = brainrotsWithCategory;
+        if (currentCategory !== "all") {
+            itemsToSelect = brainrotsWithCategory.filter(br => br.category === currentCategory);
+        }
+        itemsToSelect.forEach(br => selectedBrainrots.add(br.name));
         updateSelectedCount();
         renderBrainrots();
         showToast(`Selected ${selectedBrainrots.size} assets`);
